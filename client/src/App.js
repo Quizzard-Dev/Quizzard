@@ -10,7 +10,7 @@ import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from '@apollo/client/link/context';
 
-import Navbar from './components/Navbar';
+import MainNavbar from './components/MainNavbar';
 import Splash from './pages/Splash';
 import Dashboard from './pages/Dashboard';
 
@@ -49,7 +49,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <>
-          <Navbar />
+          <MainNavbar />
           <Switch>
             <Route exact path='/' component={Splash} />
             <Route exact path='/home' component={Dashboard} />
