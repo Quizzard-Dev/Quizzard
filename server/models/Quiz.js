@@ -17,16 +17,24 @@ const quizSchema = new Schema({
         default: Date.now,
         get: (timestamp) => dateFormat(timestamp),
       },
-    answers: [
+    questions: [
         {
-            answerText: {
+            questionText: {
                 type: String,
                 required: true
             },
-            isCorrect: {
-                type: Boolean,
-                default: false
-            }
+            answers: [
+                {
+                    answerText: {
+                        type: String,
+                        required: true
+                    },
+                    isCorrect: {
+                        type: Boolean,
+                        default: false
+                    }
+                }
+            ]
         }
     ]
 })
