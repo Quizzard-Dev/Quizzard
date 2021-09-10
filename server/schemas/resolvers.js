@@ -6,7 +6,20 @@ const resolvers = {
     Query: {
         users: async () => {
             return User.find({}).populate('quizzes')
+        },
+
+        user: async (parent, {userId}) => {
+          return User.findOne({_id: userId})
+        },
+
+        quizzes: async () => {
+          return Quiz.find({});
+        },
+
+        quiz: async (parent, {quizId}) => {
+          return Quiz.findOne({_id: quizId})
         }
+
     },
 
     Mutation: {
@@ -15,6 +28,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
           },
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
       
@@ -32,6 +46,7 @@ const resolvers = {
       
             return { token, user };
           },
+
         createQuiz: async (parent, {input}) => {
             const quiz = await Quiz.create(input);
             const author = await User.findOneAndUpdate({username: quiz.author},
