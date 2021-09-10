@@ -20,7 +20,7 @@ const customStyles = {
     display: 'inline',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
     transform: 'translate(-50%, -50%)'
   }
 };
@@ -58,9 +58,11 @@ export default function MainNavbar() {
           <p>Logout</p>
           </>
         ) : (
+          <>
           <button className='openModal text-center' onClick={openModal}>Log In | Sign Up</button>
 
           <button className='openModal' onClick={openModal}>Log In/Sign Up</button>
+          </>
         )}
       </div>
       <Modal 
@@ -73,7 +75,6 @@ export default function MainNavbar() {
         contentLabel="Login/Signup Modal"
         >
         <button className="float-right" onClick={closeModal}><FontAwesomeIcon icon={faTimes} /></button>
-      >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
         <button onClick={closeModal}>Close</button>
         <form>
