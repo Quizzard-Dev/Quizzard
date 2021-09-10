@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import Auth from '../../utils/auth';
+
 import { LOGIN_USER } from '../../utils/mutations';
+
 
 export default function LogInForm() {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
+
   const [loginUser, { error }] = useMutation(LOGIN_USER);
+
   
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -16,6 +20,7 @@ export default function LogInForm() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const { data } = await loginUser({
         variables: {...userFormData}
@@ -33,6 +38,7 @@ export default function LogInForm() {
       password: ''
     });
   };
+
   
   return (
     <div>
