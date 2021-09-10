@@ -21,22 +21,26 @@ const typeDefs = gql`
     type Answer {
         answerText: String
         isCorrect: Boolean
+        index: Number
     }
 
     type Question {
         questionText: String
         answers: [Answer]
+        index: Number
     }
 
 
     input AnswerInput {
         answerText: String
         isCorrect: Boolean
+        index: Number
     }
 
     input QuestionInput {
         questionText: String
         answers: [AnswerInput]
+        index: Number
     }
 
     type Auth {

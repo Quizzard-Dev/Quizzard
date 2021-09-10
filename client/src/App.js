@@ -13,6 +13,7 @@ import { setContext } from '@apollo/client/link/context';
 import MainNavbar from './components/MainNavbar';
 import Splash from './pages/Splash';
 import Dashboard from './pages/Dashboard';
+import QuizCreator from './pages/QuizCreator'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -50,6 +51,7 @@ function App() {
       <Router>
         <>
           <MainNavbar />
+          <QuizCreator />
           <Switch>
             <Route exact path='/' component={Splash} />
             <Route exact path='/home' component={Dashboard} />

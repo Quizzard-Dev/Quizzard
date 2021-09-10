@@ -28,6 +28,7 @@ const customStyles = {
 Modal.setAppElement(document.getElementById('root'));
 
 export default function MainNavbar() {
+  
   let subtitle;
   let navClasses = 'mx-auto flex justify-between bg-theme-main p-8';
   const [isOpen, setIsOpen] = useState(false);
