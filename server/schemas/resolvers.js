@@ -9,7 +9,7 @@ const resolvers = {
         },
 
         user: async (parent, {userId}) => {
-          return User.findOne({_id: userId})
+          return User.findOne({_id: userId}).populate('quizzes')
         },
 
         quizzes: async () => {
