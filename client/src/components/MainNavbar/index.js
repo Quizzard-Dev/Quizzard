@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Auth from '../../utils/auth';
 
 export default function MainNavbar() {
-  let navClasses = 'container bg-theme-main p-5';
+  let navClasses = 'mx-auto bg-theme-main p-5';
   const [showModal, setShowModal] = useState(false);
 
   return (

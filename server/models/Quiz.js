@@ -23,11 +23,17 @@ const quizSchema = new Schema({
                 type: String,
                 required: true
             },
+            index: {
+                type: Number
+            },
             answers: [
                 {
                     answerText: {
                         type: String,
                         required: true
+                    },
+                    index: {
+                        type: Number
                     },
                     isCorrect: {
                         type: Boolean,
