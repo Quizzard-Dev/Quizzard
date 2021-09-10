@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         theme: {
-          main: "#497FEB"
+          main: "#497FEB",
+          smoke: "rgba(0, 0, 0, 0.25)"
         }
       }
     },
