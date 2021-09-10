@@ -11,14 +11,43 @@ const typeDefs = gql`
 
     type Quiz {
         _id: ID!
+        title: String
         author: String
         createdAt: String
-        answers: [Answer]
+        questions: [Question]
     }
+
 
     type Answer {
         answerText: String
         isCorrect: Boolean
+    }
+
+    type Question {
+        questionText: String
+        answers: [Answer]
+    }
+
+
+    input AnswerInput {
+        answerText: String
+        isCorrect: Boolean
+    }
+
+    input QuestionInput {
+        questionText: String
+        answers: [AnswerInput]
+    }
+
+    type Auth {
+         token: ID!
+         user: User
+    }
+
+    input QuizInput {
+        title: String
+        author: String
+        questions: [QuestionInput]
     }
 
     type Query {
@@ -26,7 +55,9 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addUser(username: String!, email: String!, password: String!): User
+        addUser(username: String!, email: String!, password: String!): Auth
+        login(email: String!, password: String!): Auth
+        createQuiz(input: QuizInput!): Quiz
     }
 `
 
