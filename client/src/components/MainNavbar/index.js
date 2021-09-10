@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
 import LogInForm from '../LogInForm';
 import SignUpForm from '../SignUpForm';
@@ -13,6 +16,11 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'inline',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
     transform: 'translate(-50%, -50%)'
   }
 };
@@ -27,11 +35,11 @@ export default function MainNavbar() {
   function openModal() {
     setIsOpen(true);
   };
-
+  
   function afterOpenModal() {
     subtitle.style.color = '$f00';
   };
-
+  
   function closeModal() {
     setIsOpen(false);
   };
@@ -50,6 +58,8 @@ export default function MainNavbar() {
           <p>Logout</p>
           </>
         ) : (
+          <button className='openModal text-center' onClick={openModal}>Log In | Sign Up</button>
+
           <button className='openModal' onClick={openModal}>Log In/Sign Up</button>
         )}
       </div>
@@ -61,6 +71,8 @@ export default function MainNavbar() {
         shouldReturnFocusAfterClose={false}
         shouldCloseOnOverlayClick={true}
         contentLabel="Login/Signup Modal"
+        >
+        <button className="float-right" onClick={closeModal}><FontAwesomeIcon icon={faTimes} /></button>
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
         <button onClick={closeModal}>Close</button>
