@@ -41,6 +41,10 @@ export default function QuizCreator() {
         })
     }
 
+    if(loadedQuiz._id) {
+        delete loadedQuiz._id
+    }
+
     const [quiz, setQuiz] = useState(loadedQuiz)
 
     const [currentQuestion, setCurrentQuestion] = useState({})
@@ -140,7 +144,6 @@ export default function QuizCreator() {
     }
 
     async function handleQuizCreate() {
-        console.log(quiz)
         const { data } = await createQuiz({
             variables: {input: quiz}
         })
@@ -148,9 +151,10 @@ export default function QuizCreator() {
             setCurrentQuestion({})
             setCurrentAnswer({})
             setQuiz(baseQuiz)
-        }
-        if(localStorage.getItem('quiz')) {
-            localStorage.removeItem('quiz')
+            if(localStorage.getItem('quiz')) {
+                localStorage.removeItem('quiz')
+            }
+        window.location.assign("/home")
         }
     }
 

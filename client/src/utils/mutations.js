@@ -41,3 +41,13 @@ export const CREATE_QUIZ = gql `
   }
 }
 `
+
+export const DELETE_QUIZ = gql`
+  mutation deleteQuiz($quizId: ID!) {
+    deleteQuiz(quizId: $quizId) {
+      title
+      _id
+      author
+    }
+  }
+`

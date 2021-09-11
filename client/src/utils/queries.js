@@ -60,6 +60,7 @@ export const GET_ME = gql `
             _id
             username
             quizzes {
+                _id
                 title
                 questions {
                     questionText

@@ -1,9 +1,12 @@
 import {useQuery, useMutation} from "@apollo/client"
+import { DELETE_QUIZ } from "../../utils/mutations"
 import { GET_ME } from "../../utils/queries"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function QuizList() {
+
+    const [deleteQuiz] = useMutation(DELETE_QUIZ)
 
     const {loading, data} = useQuery(GET_ME)
 
@@ -20,8 +23,14 @@ export default function QuizList() {
         window.location.assign("/creator")
     }
 
-    function handleQuizDelete(quiz) {
-
+    async function handleQuizDelete(quiz, e) {
+        e.stopPropagation()
+        const { data } = await deleteQuiz({
+            variables: {quizId: quiz._id}
+        })
+        if(data) {
+            window.location.reload()
+        }
     }
     
     return (
@@ -35,7 +44,7 @@ export default function QuizList() {
                     return (
                         <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-red-500 hover:bg-red-700 hover:shadow-sm transition duration-200 px-2 py-1">
                             <span>{quiz.title}</span>
-                            <div className="px-1">
+                            <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
                                 <span><FontAwesomeIcon icon={faTimes} /></span>
                             </div>
                         </div>
