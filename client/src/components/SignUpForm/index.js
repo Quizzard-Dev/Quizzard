@@ -20,7 +20,6 @@ export default function SignUpForm() {
       if (!data) {
         throw new Error('something went wrong!');
       }
-      console.log(data);
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);

@@ -26,11 +26,15 @@ Modal.setAppElement(document.getElementById('root'));
 
 export default function MainNavbar() {
   let navClasses = 'mx-auto flex justify-between bg-theme-main p-8';
+
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState('login-radio');
 
   useEffect(() => {
-    console.log(Auth.loggedIn());
+    if (Auth.loggedIn()) {
+      let loggedInUser = Auth.getProfile().data.username
+      console.log(loggedInUser);
+    }
   });
 
   function openModal() {
@@ -52,11 +56,11 @@ export default function MainNavbar() {
           Quizzard
         </a>
       </div>
-      <div>
+      <div className='flex space-x-3'>
         {Auth.loggedIn() ? (
           <>
-            <p>Username</p>
-            <p>Logout</p>
+            <p>{Auth.getProfile().data.username}</p>
+            <button className='px-4 py-3 bg-red-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform' onClick={Auth.logout}>Logout</button>
           </>
         ) : (
           <>
