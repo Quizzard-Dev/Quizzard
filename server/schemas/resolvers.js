@@ -64,6 +64,17 @@ const resolvers = {
             return quiz
             }
             throw new AuthenticationError('You need to be logged in!');
+          },
+
+          deleteQuiz: async (parent, {quizId}, context) => {
+            if(context.user) {
+              const quiz = await Quiz.findOne({_id: quizId})
+              if(context.user.username === quiz.author) {
+                return await Quiz.findOneAndDelete({_id: quizId});
+              }
+              throw new AuthenticationError('Incorrect credentials');
+            }
+            throw new AuthenticationError('You need to be logged in!');
           }
     }
 }

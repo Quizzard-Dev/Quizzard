@@ -23,7 +23,7 @@ export default function Dropdown() {
 
   window.onclick = function(event) {
     event.preventDefault();
-    if (event.target != document.querySelector('.dropdownbtn')) {
+    if (event.target !== document.querySelector('.dropdownbtn')) {
       setDropdownPopoverShow(false);
     }
   }
@@ -55,7 +55,7 @@ export default function Dropdown() {
               style={{ minWidth: "12rem" }}
             >
               <a
-                href="#"
+                href="/home"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
@@ -64,7 +64,7 @@ export default function Dropdown() {
                 Home
               </a>
               <a
-                href="#"
+                href="/creator"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
@@ -73,7 +73,7 @@ export default function Dropdown() {
                 Creator
               </a>
               <a
-                href="#"
+                href="/home"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
@@ -83,7 +83,7 @@ export default function Dropdown() {
               </a>
               <div className="h-0 my-2 border border-solid border-t-0 border-blueGray-800 opacity-25" />
               <a
-                href="#"
+                href="/home"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
