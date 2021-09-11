@@ -46,9 +46,11 @@ export default function MainNavbar() {
   return (
     <div className={navClasses}>
       <div>
+      <Link to="/">
         <a className='tracking-widest' as={Link} href='/'>
           Quizzard
         </a>
+      </Link>
       </div>
       <div className='flex'>
         {Auth.loggedIn() ? (

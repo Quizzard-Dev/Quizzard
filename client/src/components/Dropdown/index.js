@@ -1,4 +1,5 @@
 import React, { useState, createRef } from "react";
+import { Link } from 'react-router-dom';
 import { createPopper } from "@popperjs/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -54,15 +55,17 @@ export default function Dropdown() {
               }
               style={{ minWidth: "12rem" }}
             >
+            <Link to="/home">
               <a
                 href="/home"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
-                onClick={() => window.location.assign("/home")}
               >
                 Home
               </a>
+            </Link>
+            <Link to="/creator">
               <a
                 href="/creator"
                 className={
@@ -72,6 +75,7 @@ export default function Dropdown() {
               >
                 Creator
               </a>
+            </Link>
               <a
                 href="/home"
                 className={
