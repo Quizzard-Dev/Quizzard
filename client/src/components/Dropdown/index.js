@@ -59,18 +59,18 @@ export default function Dropdown() {
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
-                onClick={e => e.preventDefault()}
+                onClick={() => window.location.assign("/home")}
               >
-                Action
+                Home
               </a>
               <a
                 href="#"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
-                onClick={e => e.preventDefault()}
+                onClick={() => window.location.assign("/creator")}
               >
-                Another action
+                Creator
               </a>
               <a
                 href="#"
