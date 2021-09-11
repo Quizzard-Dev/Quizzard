@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Quizzard-Dev/Quizzard/issues"
   },
-  "homepage": "https://github.com/Quizzard-Dev/Quizzard#readme"
+  "homepage": "https://github.com/Quizzard-Dev/Quizzard#readme",
+  "dependencies": {
+    "@popperjs/core": "^2.10.1"
+  }
 }

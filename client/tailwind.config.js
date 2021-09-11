@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         theme: {
           main: "#497FEB",
-          smoke: "rgba(0, 0, 0, 0.25)"
+          smoke: "rgba(0, 0, 0, 0.25)",
+          darker: "#3742D4"
         }
       }
     },
