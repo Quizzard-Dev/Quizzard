@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import LogInForm from '../LogInForm';
 import SignUpForm from '../SignUpForm';
+import Dropdown from '../Dropdown';
 import Auth from '../../utils/auth';
 
 const customStyles = {
@@ -25,17 +26,10 @@ const customStyles = {
 Modal.setAppElement(document.getElementById('root'));
 
 export default function MainNavbar() {
-  let navClasses = 'mx-auto flex justify-between bg-theme-main p-8';
+  let navClasses = 'mx-auto flex items-center justify-between bg-theme-main p-6';
 
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState('login-radio');
-
-  useEffect(() => {
-    if (Auth.loggedIn()) {
-      let loggedInUser = Auth.getProfile().data.username
-      console.log(loggedInUser);
-    }
-  });
 
   function openModal() {
     setIsOpen(true);
@@ -52,15 +46,14 @@ export default function MainNavbar() {
   return (
     <div className={navClasses}>
       <div>
-        <a as={Link} href='/'>
+        <a className='tracking-widest' as={Link} href='/'>
           Quizzard
         </a>
       </div>
-      <div className='flex space-x-3'>
+      <div className='flex'>
         {Auth.loggedIn() ? (
           <>
-            <p>{Auth.getProfile().data.username}</p>
-            <button className='px-4 py-3 bg-red-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform' onClick={Auth.logout}>Logout</button>
+            <Dropdown/>
           </>
         ) : (
           <>
