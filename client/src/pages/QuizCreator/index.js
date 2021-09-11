@@ -25,9 +25,26 @@ export default function QuizCreator() {
         index: 0
     }
 
-    const [quiz, setQuiz] = useState(baseQuiz)
+    const loadedQuiz = localStorage.getItem('quiz')
+    ? JSON.parse(localStorage.getItem('quiz'))
+    : baseQuiz
+
+    if(loadedQuiz.__typename) {
+        delete loadedQuiz.__typename
+        loadedQuiz.questions.map((question) => {
+            delete question.__typename
+            question.answers.map((answer) => {
+                delete answer.__typename
+                return answer
+            })
+            return question
+        })
+    }
+
+    const [quiz, setQuiz] = useState(loadedQuiz)
 
     const [currentQuestion, setCurrentQuestion] = useState({})
+
     const [currentAnswer, setCurrentAnswer] = useState({})
 
     function addQuestion() {
@@ -54,6 +71,7 @@ export default function QuizCreator() {
         const newQuestionList = quiz.questions
         newQuestionList[currentQuestion.index - 1] = currentQuestion
         setQuiz({ ...quiz, questions: newQuestionList })
+        localStorage.setItem('quiz', JSON.stringify(quiz))
     }
 
     function updateAnswer() {
@@ -130,6 +148,9 @@ export default function QuizCreator() {
             setCurrentQuestion({})
             setCurrentAnswer({})
             setQuiz(baseQuiz)
+        }
+        if(localStorage.getItem('quiz')) {
+            localStorage.removeItem('quiz')
         }
     }
 

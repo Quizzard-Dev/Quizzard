@@ -17,7 +17,6 @@ const typeDefs = gql`
         questions: [Question]
     }
 
-
     type Answer {
         answerText: String
         isCorrect: Boolean
@@ -54,6 +53,7 @@ const typeDefs = gql`
     }
 
     type Query {
+        me: User
         user(userId: ID!): User
         users: [User]
         quiz(quizId: ID!): Quiz

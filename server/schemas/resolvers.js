@@ -7,19 +7,25 @@ const mongoose = require('mongoose');
 const resolvers = {
     Query: {
         users: async () => {
-            return User.find({}).populate('quizzes')
+            return await User.find({}).populate('quizzes')
         },
 
         user: async (parent, {userId}) => {
-          return User.findOne({_id: userId}).populate('quizzes')
+          return await User.findOne({_id: userId}).populate('quizzes')
         },
 
         quizzes: async () => {
-          return Quiz.find({});
+          return await Quiz.find({});
         },
 
         quiz: async (parent, {quizId}) => {
-          return Quiz.findOne({_id: quizId})
+          return await Quiz.findOne({_id: quizId})
+        },
+
+        me: async(parent, args, context) => {
+          if(context.user) {
+            return await User.findOne({_id: context.user._id}).populate('quizzes')
+          }
         }
 
     },
