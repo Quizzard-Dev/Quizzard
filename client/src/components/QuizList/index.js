@@ -1,4 +1,6 @@
 import {useQuery, useMutation} from "@apollo/client"
+import {useState, useEffect} from 'react' 
+import {Redirect} from "react-router"
 import { DELETE_QUIZ } from "../../utils/mutations"
 import { GET_ME } from "../../utils/queries"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +10,13 @@ export default function QuizList() {
 
     const [deleteQuiz] = useMutation(DELETE_QUIZ)
 
-    const {loading, data} = useQuery(GET_ME)
+    const [redirect, setRedirect] = useState(false);
+
+    const {loading, data, error, refetch} = useQuery(GET_ME)
+
+    useEffect(() => {
+        refetch()
+    }, [data])
 
     let quizData = data?.me.quizzes || {}
 
@@ -20,7 +28,7 @@ export default function QuizList() {
 
     function handleQuizEdit(quiz) {
         localStorage.setItem('quiz', JSON.stringify(quiz))
-        window.location.assign("/creator")
+        setRedirect(true)
     }
 
     async function handleQuizDelete(quiz, e) {
@@ -29,17 +37,22 @@ export default function QuizList() {
             variables: {quizId: quiz._id}
         })
         if(data) {
-            window.location.reload()
+            refetch()
         }
     }
+
     
+    if(redirect) {
+        return <Redirect to="/creator" />
+    }
+
     return (
         <div className="mx-auto container bg-yellow-200 rounded p-3">
             <h2 className="text-lg mb-5 font-semibold">Quiz List</h2>
             {quizData.length
             ? (<div>
                 <span>{`You have ${quizData.length} Saved Quizzes`}</span>
-                <div className="flex flex-col space-y-3 container">
+                <div className="mt-5 flex flex-col space-y-3 container">
                 {quizData.map((quiz) => {
                     return (
                         <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-red-500 hover:bg-red-700 hover:shadow-sm transition duration-200 px-2 py-1">

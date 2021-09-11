@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import {Redirect} from "react-router"
 import { useMutation } from '@apollo/client'
 import { CREATE_QUIZ } from '../../utils/mutations'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -50,6 +51,8 @@ export default function QuizCreator() {
     const [currentQuestion, setCurrentQuestion] = useState({})
 
     const [currentAnswer, setCurrentAnswer] = useState({})
+
+    const [redirect, setRedirect] = useState(false)
 
     function addQuestion() {
         const newQuestionList = quiz.questions
@@ -154,8 +157,12 @@ export default function QuizCreator() {
             if(localStorage.getItem('quiz')) {
                 localStorage.removeItem('quiz')
             }
-        window.location.assign("/home")
+            setRedirect(true);
         }
+    }
+
+    if(redirect) {
+        return <Redirect to="/home/reload" />
     }
 
     return (

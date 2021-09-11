@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from "react-router"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import {
   ApolloClient,
@@ -55,6 +56,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={Splash} />
             <Route exact path='/home' component={Dashboard} />
+            <Redirect exact from="/home/reload" to="/home" />
             <Route path="/creator" component={QuizCreator} />
           </Switch>
         </>
