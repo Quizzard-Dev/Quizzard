@@ -9,11 +9,6 @@ export default function SignUpForm() {
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: ''});
   const [createUser] = useMutation(CREATE_USER);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -26,7 +21,7 @@ export default function SignUpForm() {
         throw new Error('something went wrong!');
       }
       console.log(data);
-      Auth.login(data.createUser.token);
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
     }
@@ -40,10 +35,10 @@ export default function SignUpForm() {
 
   return (
     <div>
-      <form className='p-3' onSubmit={handleFormSubmit}>
-      <input onChange={handleInputChange} type='text' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='username' />
-        <input onChange={handleInputChange} type='email' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='john@website.com' />
-        <input onChange={handleInputChange} type='password' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='password' />
+      <form className='p-3' onSubmit={(e) => handleFormSubmit(e)}>
+      <input value={userFormData.username} onChange={(e) => setUserFormData({...userFormData, username: e.target.value})} type='text' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='username' />
+        <input value={userFormData.email} onChange={(e) => setUserFormData({...userFormData, email: e.target.value})} type='email' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='john@website.com' />
+        <input value={userFormData.password} onChange={(e) => setUserFormData({...userFormData, password: e.target.value})} type='password' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='password' />
         {/* <input onChange={handleInputChange} type='password' className='w-full mb-3 placeholder-gray-400 placeholder-opacity-70 px-4 py-3 rounded-full' placeholder='confirm password' /> */}
         <button 
           type='submit' className='w-full px-4 py-3 bg-blue-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform'>
