@@ -2,6 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const {User, Quiz} = require("../models")
 const { signToken } = require('../utils/auth');
 
+const mongoose = require('mongoose');
+
 const resolvers = {
     Query: {
         users: async () => {
@@ -47,12 +49,16 @@ const resolvers = {
             return { token, user };
           },
 
-        createQuiz: async (parent, {input}) => {
-            const quiz = await Quiz.create(input);
-            const author = await User.findOneAndUpdate({username: quiz.author},
+        createQuiz: async (parent, {input}, context) => {
+          if(context.user) {
+            console.log(context.user)
+            const quiz = await Quiz.create({...input, author: context.user.username});
+            const author = await User.findOneAndUpdate({_id: context.user._id},
                 { $addToSet: { quizzes: quiz._id}})
-            return quiz;
+            return quiz
             }
+            throw new AuthenticationError('You need to be logged in!');
+          }
     }
 }
 

@@ -50,7 +50,6 @@ const typeDefs = gql`
 
     input QuizInput {
         title: String
-        author: String
         questions: [QuestionInput]
     }
 
