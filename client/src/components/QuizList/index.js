@@ -1,5 +1,7 @@
-import {useQuery} from "@apollo/client"
+import {useQuery, useMutation} from "@apollo/client"
 import { GET_ME } from "../../utils/queries"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function QuizList() {
 
@@ -15,7 +17,11 @@ export default function QuizList() {
 
     function handleQuizEdit(quiz) {
         localStorage.setItem('quiz', JSON.stringify(quiz))
-        window.location.assign("http://localhost:3000/creator")
+        window.location.assign("/creator")
+    }
+
+    function handleQuizDelete(quiz) {
+
     }
     
     return (
@@ -27,8 +33,11 @@ export default function QuizList() {
                 <div className="flex flex-col space-y-3 container">
                 {quizData.map((quiz) => {
                     return (
-                        <div onClick={() => handleQuizEdit(quiz)} className="container rounded bg-red-500 px-2 py-1">
+                        <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-red-500 hover:bg-red-700 hover:shadow-sm transition duration-200 px-2 py-1">
                             <span>{quiz.title}</span>
+                            <div className="px-1">
+                                <span><FontAwesomeIcon icon={faTimes} /></span>
+                            </div>
                         </div>
                     )
                 })}
