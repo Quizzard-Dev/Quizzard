@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,32 +18,32 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     display: 'inline',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    transform: 'translate(-50%, -50%)'
+    textAlign: 'right'
   }
 };
 
 Modal.setAppElement(document.getElementById('root'));
 
 export default function MainNavbar() {
-  
-  let subtitle;
   let navClasses = 'mx-auto flex justify-between bg-theme-main p-8';
   const [isOpen, setIsOpen] = useState(false);
+  const [checked, setChecked] = useState('login-radio');
+
+  useEffect(() => {
+    console.log(Auth.loggedIn());
+  });
 
   function openModal() {
     setIsOpen(true);
   };
   
-  function afterOpenModal() {
-    subtitle.style.color = '$f00';
-  };
-  
   function closeModal() {
     setIsOpen(false);
   };
+
+  function handleRadioChange(event) {
+    console.log(event.target);
+  }
 
   return (
     <div className={navClasses}>
@@ -55,43 +55,37 @@ export default function MainNavbar() {
       <div>
         {Auth.loggedIn() ? (
           <>
-          <p>Username</p>
-          <p>Logout</p>
+            <p>Username</p>
+            <p>Logout</p>
           </>
         ) : (
           <>
           <button className='openModal text-center' onClick={openModal}>Log In | Sign Up</button>
-
-          <button className='openModal' onClick={openModal}>Log In/Sign Up</button>
           </>
         )}
       </div>
       <Modal 
         isOpen={isOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         shouldReturnFocusAfterClose={false}
         shouldCloseOnOverlayClick={true}
         contentLabel="Login/Signup Modal"
         >
-        <button className="float-right" onClick={closeModal}><FontAwesomeIcon icon={faTimes} /></button>
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>Close</button>
+        <button className="text-center" onClick={closeModal}><FontAwesomeIcon icon={faTimes} size='2x' /></button>
         <form>
-          <fieldset>
+          <fieldset className='text-center space-x-4'>
             <label>
-              <input id='login-radio' name='modalRadio' type='radio' /> Log In
+              <input id='login-radio' checked={checked === 'login-radio'} value='login-radio' onClick={() => setChecked('login-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Log In
             </label>
             <label>
-              <input id='signup-radio' name='modalRadio' type='radio' /> Sign Up
+              <input id='signup-radio' checked={checked === 'signup-radio'} value='signup-radio' onClick={() => setChecked('signup-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Sign Up
             </label>
-          </fieldset>
-          <fieldset>
-            <LogInForm />
-            <SignUpForm />
           </fieldset>
         </form>
+        <div>
+          {checked === 'login-radio' ? <LogInForm /> : <SignUpForm />}
+        </div>
       </Modal>
     </div>
   )
