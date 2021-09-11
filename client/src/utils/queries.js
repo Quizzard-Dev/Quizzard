@@ -53,3 +53,24 @@ export const GET_QUIZ = gql `
         }
     }
 `
+
+export const GET_ME = gql `
+    query me {
+        me {
+            _id
+            username
+            quizzes {
+                title
+                questions {
+                    questionText
+                    index
+                    answers {
+                        answerText
+                        index
+                        isCorrect
+                    }
+                }
+            }
+        }
+    }
+`
