@@ -26,8 +26,6 @@ const customStyles = {
 Modal.setAppElement(document.getElementById('root'));
 
 export default function MainNavbar() {
-  let navClasses = 'mx-auto flex items-center justify-between bg-theme-main p-6';
-
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState('login-radio');
 
@@ -44,48 +42,50 @@ export default function MainNavbar() {
   }
 
   return (
-    <div className={navClasses}>
-      <div>
-      <Link to="/">
-        <a className='tracking-widest' as={Link} href='/'>
-          Quizzard
-        </a>
-      </Link>
-      </div>
-      <div className='flex'>
-        {Auth.loggedIn() ? (
-          <>
-            <Dropdown/>
-          </>
-        ) : (
-          <>
-          <button className='openModal text-center' onClick={openModal}>Log In | Sign Up</button>
-          </>
-        )}
-      </div>
-      <Modal 
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        shouldReturnFocusAfterClose={false}
-        shouldCloseOnOverlayClick={true}
-        contentLabel="Login/Signup Modal"
-        >
-        <button className="text-center" onClick={closeModal}><FontAwesomeIcon icon={faTimes} size='2x' /></button>
-        <form>
-          <fieldset className='text-center space-x-4'>
-            <label>
-              <input id='login-radio' checked={checked === 'login-radio'} value='login-radio' onClick={() => setChecked('login-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Log In
-            </label>
-            <label>
-              <input id='signup-radio' checked={checked === 'signup-radio'} value='signup-radio' onClick={() => setChecked('signup-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Sign Up
-            </label>
-          </fieldset>
-        </form>
+    <nav className='w-full fixed bg-theme-main z-10'>
+      <div className='flex items-center justify-between mx-auto w-11/12 py-3'>
         <div>
-          {checked === 'login-radio' ? <LogInForm /> : <SignUpForm />}
+          <Link to="/">
+            <a className='tracking-widest font-main text-xl' as={Link} href='/'>
+              Quizzard
+            </a>
+          </Link>
         </div>
-      </Modal>
-    </div>
+        <div className=''>
+          {Auth.loggedIn() ? (
+            <>
+              <Dropdown/>
+            </>
+          ) : (
+            <>
+            <button className='openModal font-main text-center' onClick={openModal}>Log In | Sign Up</button>
+            </>
+          )}
+        </div>
+        <Modal 
+          isOpen={isOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          shouldReturnFocusAfterClose={false}
+          shouldCloseOnOverlayClick={true}
+          contentLabel="Login/Signup Modal"
+          >
+          <button className="text-center" onClick={closeModal}><FontAwesomeIcon icon={faTimes} size='2x' /></button>
+          <form>
+            <fieldset className='text-center space-x-4'>
+              <label>
+                <input id='login-radio' checked={checked === 'login-radio'} value='login-radio' onClick={() => setChecked('login-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Log In
+              </label>
+              <label>
+                <input id='signup-radio' checked={checked === 'signup-radio'} value='signup-radio' onClick={() => setChecked('signup-radio')} onChange={handleRadioChange} name='modalRadio' type='radio' /> Sign Up
+              </label>
+            </fieldset>
+          </form>
+          <div>
+            {checked === 'login-radio' ? <LogInForm /> : <SignUpForm />}
+          </div>
+        </Modal>
+      </div>
+    </nav>
   )
 };
