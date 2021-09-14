@@ -18,7 +18,7 @@ export default function QuizList() {
         refetch()
     }, [data])
 
-    let quizData = data?.me.quizzes || {}
+    let quizData = data?.me?.quizzes || {}
 
     if(loading) {
         return(
