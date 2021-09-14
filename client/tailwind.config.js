@@ -15,7 +15,11 @@ module.exports = {
           aliceblue: "#F0F8FF",
           smoke: "rgba(0, 0, 0, 0.25)"
         }
-      }
+      },
+      height: {
+        ten: '10%',
+        ninety: '90%'
+      },
     },
   },
   variants: {

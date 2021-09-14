@@ -47,8 +47,8 @@ export default function QuizList() {
     }
 
     return (
-        <div className="mx-auto container bg-yellow-200 rounded p-3">
-            <h2 className="text-lg mb-5 font-semibold">Quiz List</h2>
+        <div className="h-auto md:h-1/2 p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
+            <h2 className="text-lg mb-5 font-semibold">Your Quizzes</h2>
             {quizData.length
             ? (<div>
                 <span>{`You have ${quizData.length} Saved Quizzes`}</span>
@@ -65,7 +65,7 @@ export default function QuizList() {
                 })}
                 </div>
             </div>)
-            : `You have No Saved Quizzes`}
+            : `You have no Saved Quizzes`}
         </div>
     )
 }
