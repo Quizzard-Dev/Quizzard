@@ -56,24 +56,22 @@ export default function Dropdown() {
               style={{ minWidth: "12rem" }}
             >
             <Link to="/home">
-              <a
-                href="/home"
+              <p
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
               >
                 Home
-              </a>
+              </p>
             </Link>
             <Link to="/creator">
-              <a
-                href="/creator"
+              <p
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                 }
               >
                 Creator
-              </a>
+              </p>
             </Link>
               <a
                 href="/home"

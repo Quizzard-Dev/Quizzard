@@ -12,7 +12,7 @@ export default function QuizList() {
 
   const [redirect, setRedirect] = useState(false);
 
-  const { loading, data, error, refetch } = useQuery(GET_ME);
+  const { loading, data, refetch } = useQuery(GET_ME);
 
   useEffect(() => {
     refetch();
