@@ -35,7 +35,7 @@ export default function Dropdown() {
       <div className="relative font-main inline-flex align-middle w-full">
             <button
               className={
-                "text-white text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 dropdownbtn bg-theme-darker"
+                "text-theme-aliceblue text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 dropdownbtn bg-theme-darker"
               }
               type="button"
               ref={btnDropdownRef}
