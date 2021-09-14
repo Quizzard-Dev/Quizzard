@@ -19,7 +19,8 @@ export default function LogInForm() {
       if (!data) {
         throw new Error('Something went wrong!');
       }
-      Auth.login(data.login.token)
+      Auth.login(data.login.token);
+      window.location.assign('/home');
     } catch(err) {
       console.error(err);
     }

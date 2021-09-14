@@ -46,12 +46,12 @@ export default function MainNavbar() {
       <div className='flex items-center justify-between mx-auto w-11/12 py-3'>
         <div>
           <Link to="/">
-            <a className='tracking-widest font-main text-xl' as={Link} href='/'>
+            <a className='tracking-widest text-theme-aliceblue font-main font-semibold text-xl' as={Link} href='/'>
               Quizzard
             </a>
           </Link>
         </div>
-        <div className=''>
+        <div>
           {Auth.loggedIn() ? (
             <>
               <Dropdown/>
