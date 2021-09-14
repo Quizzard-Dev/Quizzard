@@ -48,8 +48,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const testQuiz = {}
-
 function App() {
   return (
     <ApolloProvider client={client}>
