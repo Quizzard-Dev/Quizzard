@@ -166,7 +166,8 @@ export default function QuizCreator() {
     }
 
     return (
-        <div className="bg-blue-200 rounded shadow-lg p-5 m-3">
+    <div className='min-h-screen flex bg-theme-lighter'>
+        <div className="bg-theme-bluegray mt-20 w-full rounded shadow-lg p-5 m-3">
             <h1 className="text-xl font-bold text-center">Quiz Creator</h1>
             <form>
                 <input type="text" value={quiz.title} placeholder="Title" onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
@@ -257,6 +258,7 @@ export default function QuizCreator() {
             <div className="text-center">
                 {quiz.questions.length >= 3 ? <button onClick={() => handleQuizCreate()} className="rounded bg-green-500 hover:bg-green-700 mx-auto font-bold text-lg mt-10 py-3 px-20 transition duration-200">Create Quiz</button> : null}
             </div>
+        </div>
         </div>
     )
 }
