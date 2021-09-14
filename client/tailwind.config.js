@@ -18,7 +18,8 @@ module.exports = {
       },
       height: {
         ten: '10%',
-        ninety: '90%'
+        ninety: '90%',
+        eightyvh: '80vh'
       },
     },
   },

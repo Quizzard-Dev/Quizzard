@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   return (
     <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
-      <div className='m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
+      <div className='h-auto md:h-eightyvh m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
         <div className='text-center h-full space-y-4 mt-20 md:mt-0 mb-14'>
           <form className='h-10 md:h-ten'>
             <input 
@@ -36,29 +36,29 @@ export default function Dashboard() {
           </div>
         </div>
         <div className='flex flex-wrap space-y-0 md:space-y-4 text-center'>
-          <div className='h-1/6 md:h-1/5 w-full grid grid-flow-col grid-cols-2 gap-3'>
-            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+          <div className='h-ten w-full mt-12 md:mt-0 grid grid-flow-col grid-cols-2 gap-3'>
+            <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
               <Link to='/creator'>
                 <a href='/creator'>
-                  Create a new quiz
+                  Create a quiz
                 </a>
               </Link>
             </button>
-            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+            <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
               <Link to='/'>
                 <a onClick={Auth.logout} href='/'>
-                  Log out of quizzard
+                  Log out
                 </a>
               </Link>
             </button>
-            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+            <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
               <Link to='/'>
                 <a href='/'>
                   Third button
                 </a>
               </Link>
             </button>
-            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+            <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
               <Link to='/'>
                 <a href='/'>
                   Fourth button
@@ -66,7 +66,7 @@ export default function Dashboard() {
               </Link>
             </button>
           </div>
-          <div className='hidden md:grid h-4/5 p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+          <div className='hidden md:grid h-ninety p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Categories
           </div>
         </div>
