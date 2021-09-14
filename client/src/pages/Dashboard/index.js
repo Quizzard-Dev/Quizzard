@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+
+import Auth from '../../utils/auth';
 import QuizList from '../../components/QuizList';
 
 export default function Dashboard() {
+  
   const [searchInput, setSearchInput] = useState('');
-
+  
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   }
 
+  let token = localStorage.getItem('id_token');
+  
+  if (!token) {
+    return <Redirect to='/' />
+  }
+
   return (
     <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
-      <div className='w-screen m-5 mt-20 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4' style={{
-        height: "80vh"
-      }}>
-        <div className='text-center h-full space-y-4'>
-          <form className='h-ten'>
+      <div className='m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
+        <div className='text-center h-full space-y-4 mt-20 md:mt-0 mb-14'>
+          <form className='h-10 md:h-ten'>
             <input 
               value={searchInput}
               onChange={(e) => handleSearchSubmit(e)}
@@ -23,34 +31,42 @@ export default function Dashboard() {
               placeholder='Search for topics!'
             />
           </form>
-          <div className='h-96 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+          <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Quizzes
           </div>
         </div>
-        <div className='flex flex-wrap space-y-4 text-center h-full'>
-          <div className='h-1/3 w-full space-y-4 inline items-center'>
-            <div>
-              <button className='w-full px-4 py-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                Create a new quiz
-              </button>
-            </div>
-            <div>
-              <button className='w-full px-4 py-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                Logout
-              </button>
-            </div>
-            <div>
-              <button className='w-full px-4 py-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                Third button
-              </button>
-            </div>
-            <div>
-              <button className='w-full px-4 py-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                Fourth button
-              </button>
-            </div>
+        <div className='flex flex-wrap space-y-0 md:space-y-4 text-center'>
+          <div className='h-1/6 md:h-1/5 w-full grid grid-flow-col grid-cols-2 gap-3'>
+            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <Link to='/creator'>
+                <a href='/creator'>
+                  Create a new quiz
+                </a>
+              </Link>
+            </button>
+            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <Link to='/'>
+                <a onClick={Auth.logout} href='/'>
+                  Log out of quizzard
+                </a>
+              </Link>
+            </button>
+            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <Link to='/'>
+                <a href='/'>
+                  Third button
+                </a>
+              </Link>
+            </button>
+            <button className='w-full p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <Link to='/'>
+                <a href='/'>
+                  Fourth button
+                </a>
+              </Link>
+            </button>
           </div>
-          <div className='hidden md:grid h-2/3 p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+          <div className='hidden md:grid h-4/5 p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Categories
           </div>
         </div>
