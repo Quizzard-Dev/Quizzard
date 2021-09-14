@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from "react-router";
 import { useMutation } from '@apollo/client';
 import { CREATE_QUIZ } from '../../utils/mutations';
@@ -6,143 +6,143 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function QuizCreator() {
-
-  const [createQuiz] = useMutation(CREATE_QUIZ)
+  const [createQuiz] = useMutation(CREATE_QUIZ);
 
   const baseQuiz = {
     title: "",
     questions: []
-  }
+  };
 
   const baseQuestion = {
     questionText: "",
     answers: [],
     index: 0
-  }
+  };
 
   const baseAnswer = {
     answerText: "",
     isCorrect: false,
     index: 0
-  }
+  };
 
   const loadedQuiz = localStorage.getItem('quiz')
     ? JSON.parse(localStorage.getItem('quiz'))
-    : baseQuiz
+    : baseQuiz;
 
   if (loadedQuiz.__typename) {
-    delete loadedQuiz.__typename
+    delete loadedQuiz.__typename;
     loadedQuiz.questions.map((question) => {
-      delete question.__typename
+      delete question.__typename;
       question.answers.map((answer) => {
-        delete answer.__typename
-        return answer
-      })
-      return question
-    })
-  }
+        delete answer.__typename;
+        return answer;
+      });
+      return question;
+    });
+  };
 
   if (loadedQuiz._id) {
-    delete loadedQuiz._id
-  }
+    delete loadedQuiz._id;
+  };
 
-  const [quiz, setQuiz] = useState(loadedQuiz)
+  const [quiz, setQuiz] = useState(loadedQuiz);
 
-  const [currentQuestion, setCurrentQuestion] = useState({})
+  const [currentQuestion, setCurrentQuestion] = useState({});
 
-  const [currentAnswer, setCurrentAnswer] = useState({})
+  const [currentAnswer, setCurrentAnswer] = useState({});
 
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   function addQuestion() {
-    const newQuestionList = quiz.questions
-    const newQuestion = baseQuestion
-    newQuestion.index = quiz.questions.length + 1
-    newQuestionList.push(baseQuestion)
-    setQuiz({ ...quiz, questions: newQuestionList })
-    console.log(quiz)
-  }
+    const newQuestionList = quiz.questions;
+    const newQuestion = baseQuestion;
+    newQuestion.index = quiz.questions.length + 1;
+    newQuestionList.push(baseQuestion);
+    setQuiz({ ...quiz, questions: newQuestionList });
+    console.log(quiz);
+  };
 
   function addAnswer() {
-    const newAnswerList = currentQuestion.answers
-    const newAnswer = baseAnswer
-    newAnswer.index = currentQuestion.answers.length + 1
+    const newAnswerList = currentQuestion.answers;
+    const newAnswer = baseAnswer;
+    newAnswer.index = currentQuestion.answers.length + 1;
     if (newAnswer.index === 1) {
       newAnswer.isCorrect = true;
-    }
-    newAnswerList.push(newAnswer)
-    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList })
-  }
+    };
+    newAnswerList.push(newAnswer);
+    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
+  };
 
   function updateQuestion() {
-    const newQuestionList = quiz.questions
-    newQuestionList[currentQuestion.index - 1] = currentQuestion
-    setQuiz({ ...quiz, questions: newQuestionList })
-    localStorage.setItem('quiz', JSON.stringify(quiz))
-  }
+    const newQuestionList = quiz.questions;
+    newQuestionList[currentQuestion.index - 1] = currentQuestion;
+    setQuiz({ ...quiz, questions: newQuestionList });
+    localStorage.setItem('quiz', JSON.stringify(quiz));
+  };
 
   function updateAnswer() {
-    const newAnswerList = currentQuestion.answers
-    newAnswerList[currentAnswer.index - 1] = currentAnswer
-    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList })
-  }
+    const newAnswerList = currentQuestion.answers;
+    newAnswerList[currentAnswer.index - 1] = currentAnswer;
+    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
+  };
 
   function handleQuestionChange(question) {
-    updateQuestion()
-    setCurrentQuestion(question)
+    updateQuestion();
+    setCurrentQuestion(question);
     setCurrentAnswer({});
-  }
+  };
 
   function handleAnswerChange(answer) {
-    updateAnswer()
-    setCurrentAnswer(answer)
-  }
+    updateAnswer();
+    setCurrentAnswer(answer);
+  };
 
   function handleQuestionDelete(question, e) {
     e.stopPropagation();
     if (question.index === currentQuestion.index) {
-      setCurrentQuestion({})
-      setCurrentAnswer({})
-    }
-    const newQuestionList = quiz.questions
-    const delIndex = newQuestionList.indexOf(question)
-    newQuestionList.splice(delIndex, 1)
+      setCurrentQuestion({});
+      setCurrentAnswer({});
+    };
+
+    const newQuestionList = quiz.questions;
+    const delIndex = newQuestionList.indexOf(question);
+    newQuestionList.splice(delIndex, 1);
     newQuestionList.forEach((question, index) => {
-      question.index = (index + 1)
-    })
-    setQuiz({ ...quiz, questions: newQuestionList })
-  }
+      question.index = (index + 1);
+    });
+    setQuiz({ ...quiz, questions: newQuestionList });
+  };
 
   function handleAnswerDelete(answer, e) {
     e.stopPropagation();
     if (answer.index === currentAnswer.index) {
-      setCurrentAnswer({})
-    }
-    const newAnswerList = currentQuestion.answers
-    const delIndex = newAnswerList.indexOf(answer)
-    newAnswerList.splice(delIndex, 1)
+      setCurrentAnswer({});
+    };
+    const newAnswerList = currentQuestion.answers;
+    const delIndex = newAnswerList.indexOf(answer);
+    newAnswerList.splice(delIndex, 1);
     newAnswerList.forEach((answer, index) => {
-      answer.index = (index + 1)
+      answer.index = (index + 1);
     })
     if (answer.isCorrect && newAnswerList.length) {
       newAnswerList[0].isCorrect = true;
     }
-    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList })
+    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
   }
 
   function handleCorrectChange(correctAnswer, e) {
-    e.stopPropagation()
+    e.stopPropagation();
     const newAnswerList = currentQuestion.answers.map((answer) => {
       if (answer === correctAnswer) {
-        answer.isCorrect = true
+        answer.isCorrect = true;
       }
       else {
-        answer.isCorrect = false
+        answer.isCorrect = false;
       }
       return answer;
     })
-    console.log(newAnswerList)
-    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList })
+    console.log(newAnswerList);
+    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
 
   }
 
@@ -151,11 +151,11 @@ export default function QuizCreator() {
       variables: { input: quiz }
     })
     if (data) {
-      setCurrentQuestion({})
-      setCurrentAnswer({})
-      setQuiz(baseQuiz)
+      setCurrentQuestion({});
+      setCurrentAnswer({});
+      setQuiz(baseQuiz);
       if (localStorage.getItem('quiz')) {
-        localStorage.removeItem('quiz')
+        localStorage.removeItem('quiz');
       }
       setRedirect(true);
     }
@@ -164,12 +164,12 @@ export default function QuizCreator() {
   let token = localStorage.getItem('id_token');
 
   if (!token) {
-    return <Redirect to='/' />
-  }
+    return <Redirect to='/' />;
+  };
 
   if (redirect) {
-    return <Redirect to="/home/reload" />
-  }
+    return <Redirect to="/home/reload" />;
+  };
 
   return (
     <div className='min-h-screen flex bg-theme-lighter'>
