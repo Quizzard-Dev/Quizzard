@@ -29,7 +29,6 @@ const typeDefs = gql`
         index: Int
     }
 
-
     input AnswerInput {
         answerText: String
         isCorrect: Boolean
@@ -58,6 +57,7 @@ const typeDefs = gql`
         users: [User]
         quiz(quizId: ID!): Quiz
         quizzes: [Quiz]
+        searchQuizzes(search: String): [Quiz]
     }
 
     type Mutation {

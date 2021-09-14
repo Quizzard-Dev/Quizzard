@@ -45,10 +45,10 @@ export default function MainNavbar() {
     <nav className='w-full fixed bg-theme-main z-10'>
       <div className='flex items-center justify-between mx-auto w-11/12 py-3'>
         <div>
-          <Link to="/">
-            <a className='tracking-widest text-theme-aliceblue font-main font-semibold text-xl' as={Link} href='/'>
+          <Link to="/home">
+            <p className='tracking-widest text-theme-aliceblue font-main font-semibold text-xl' as={Link}>
               Quizzard
-            </a>
+            </p>
           </Link>
         </div>
         <div>
