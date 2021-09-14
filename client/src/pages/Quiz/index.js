@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom"
 
 import { GET_QUIZ } from "../../utils/queries"
 
+
 export default function Quiz() {
 
     const [currentQuestion, setCurrentQuestion] = useState({})
@@ -35,6 +36,50 @@ export default function Quiz() {
         }
     }
 
+    function useForceUpdate(){
+        const [value, setValue] = useState(0); // integer state
+        return () => setValue(value => value + 1); // update the state to force render
+    }
+
+    const forceUpdate = useForceUpdate()
+
+    function checkAnswer(question, answer) {
+        if(!answers.length) {
+            const answerList = data.quiz.questions.map(question => {
+                return ({chosenAnswer: 0, questionIndex: question.index})
+            })
+            setAnswers(answerList)
+        }
+        else {
+            let newAnswers = answers
+            newAnswers[question.index - 1].chosenAnswer = answer.index
+            setAnswers(newAnswers)
+            forceUpdate()
+        }
+    }
+
+    function Answers({question, answersList}) {
+        if(question.answers) {
+            const questionList = question.answers.map((answer) => {
+                return (
+                    <div className="w-full flex justify-center" key={`${question.index}${answer.index}`}>
+                        <div onClick={() => checkAnswer(question, answer)} className={`w-3/4 p-2 rounded transition duration-200 ${answersList[question.index - 1]?.chosenAnswer === answer.index ? "bg-blue-800" : "bg-blue-400 hover:bg-blue-600"}`}>
+                            <span>{answer.answerText}</span>
+                        </div>
+                    </div>
+                )
+            })
+            return (
+                <div className="space-y-3">
+                    {questionList}
+                </div>
+            )
+        }
+        return(
+            <p>No Answers</p>
+        )
+    }
+
 
 
     if(loading) {
@@ -64,9 +109,10 @@ export default function Quiz() {
                 <span>Created By: {data.quiz.author}</span>
                 <div className="w-full p-3 container rounded bg-theme-lighter">
                   <span>{currentQuestion.questionText}</span>
-                  <div className="items-center justify-center flex space-x-5">
-                    <button className="p-2 rounded bg-theme-darker" onClick={() => nextQuestion()}>Next Question</button>
+                    <Answers question={currentQuestion} answersList={answers} />
+                  <div className="mt-10 items-center justify-center flex space-x-5">
                     <button className="p-2 rounded bg-theme-darker" onClick={() => prevQuestion()}>Back</button>
+                    <button className="p-2 rounded bg-theme-darker" onClick={() => nextQuestion()}>Next Question</button>
                   </div>
                 </div>
             </div>
