@@ -15,6 +15,7 @@ import MainNavbar from './components/MainNavbar';
 import Splash from './pages/Splash';
 import Dashboard from './pages/Dashboard';
 import QuizCreator from './pages/QuizCreator'
+import Quiz from './pages/Quiz';
 
 
 const httpLink = createHttpLink({
@@ -47,6 +48,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const testQuiz = {}
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -58,6 +61,7 @@ function App() {
             <Route exact path='/home' component={Dashboard} />
             <Redirect exact from="/home/reload" to="/home" />
             <Route path="/creator" component={QuizCreator} />
+            <Route path="/quiz/:id" component={Quiz}/>
           </Switch>
         </>
       </Router>

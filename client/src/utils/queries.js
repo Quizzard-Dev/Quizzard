@@ -45,8 +45,10 @@ export const GET_QUIZ = gql `
             author
             questions {
                 questionText
+                index
                 answers {
                     answerText
+                    index
                     isCorrect
                 }
             }
