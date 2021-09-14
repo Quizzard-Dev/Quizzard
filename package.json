@@ -20,7 +20,5 @@
     "url": "https://github.com/Quizzard-Dev/Quizzard/issues"
   },
   "homepage": "https://github.com/Quizzard-Dev/Quizzard#readme",
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
