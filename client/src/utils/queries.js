@@ -37,7 +37,7 @@ export const GET_QUIZZES = gql`
     }
 `;
 
-export const GET_QUIZ = gql `
+export const GET_QUIZ = gql`
     query quiz($quizId: ID!) {
         quiz(quizId: $quizId) {
             _id
@@ -56,29 +56,29 @@ export const GET_QUIZ = gql `
     }
 `;
 
-export const GET_ME = gql `
-    query me {
-        me {
-            _id
-            username
-            quizzes {
-                _id
-                title
-                questions {
-                    questionText
-                    index
-                    answers {
-                        answerText
-                        index
-                        isCorrect
-                    }
-                }
-            }
+export const GET_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      quizzes {
+        _id
+        title
+        questions {
+          questionText
+          index
+          answers {
+            answerText
+            index
+            isCorrect
+          }
         }
+      }
     }
+  }
 `;
 
-export const SEARCH_QUIZZES = gql `
+export const SEARCH_QUIZZES = gql`
   query search($search: String!) {
     searchQuizzes(search: $search) {
       _id

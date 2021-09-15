@@ -22,7 +22,7 @@ export default function Quiz() {
 
   function nextQuestion() {
     if (currentQuestion.index < data.quiz.questions.length) {
-      const nextQuestion = data.quiz.questions;[currentQuestion.index];
+      const nextQuestion = data.quiz.questions[currentQuestion.index];
       setCurrentQuestion(nextQuestion);
     };
   };
@@ -45,7 +45,7 @@ export default function Quiz() {
   function checkAnswer(question, answer) {
     if (!answers.length) {
       const answerList = data.quiz.questions.map(question => {
-        return ({ chosenAnswer: 0, questionIndex: question.index });
+        return ({ chosenAnswer: 0, questionIndex: question.index })
       })
       setAnswers(answerList);
     }
