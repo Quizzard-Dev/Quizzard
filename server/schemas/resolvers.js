@@ -88,6 +88,35 @@ const resolvers = {
         throw new AuthenticationError('Incorrect credentials');
       }
       throw new AuthenticationError('You need to be logged in!');
+    },
+
+    submitQuiz: async (parent, {quizId, answers}, context) => {
+      if(context.user) {
+        let numCorrect = 0
+        let grades = []
+        const quiz = await Quiz.findOne({_id: quizId})
+        const correctAnswers = []
+        quiz.questions.forEach(question => {
+          question.answers.forEach(answer => {
+            if(answer.isCorrect) {
+              correctAnswers.push({questionIndex: question.index, correctAnswer: answer.index})
+            }
+          })
+        })
+        answers.forEach(answer => {
+          const question = correctAnswers.find(question => question.questionIndex === answer.questionIndex)
+          if(question.correctAnswer === answer.chosenAnswer) {
+            grades.push({questionIndex: answer.questionIndex, correct: true})
+            numCorrect ++;
+          }
+          else {
+            grades.push({questionIndex: answer.questionIndex, correct: false})
+          }
+        })
+        console.log(grades)
+        return ({percentage: (numCorrect / correctAnswers.length), results: grades})
+      }
+      throw new AuthenticationError('You need to be logged in!');
     }
   }
 };
