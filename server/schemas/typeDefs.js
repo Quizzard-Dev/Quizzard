@@ -77,7 +77,7 @@ const typeDefs = gql`
         user(userId: ID!): User
         users: [User]
         quiz(quizId: ID!): Quiz
-        quizzes: [Quiz]
+        quizzes(authorId: ID!, offset: Int, limit: Int): [Quiz]
         searchQuizzes(search: String): [Quiz]
     }
 

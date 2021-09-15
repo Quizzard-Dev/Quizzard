@@ -28,11 +28,18 @@ export const GET_USER = gql`
 `;
 
 export const GET_QUIZZES = gql`
-    query quizzes {
-        quizzes {
+    query quizzes($authorId: ID!, $offset: Int, $limit: Int) {
+        quizzes(authorId: $authorId, offset: $offset, limit: $limit) {
             _id
             title
             author
+            questions {
+                questionText
+                answers {
+                    answerText
+                    isCorrect
+                }
+            }
         }
     }
 `;
@@ -66,7 +73,7 @@ export const GET_ME = gql`
     me {
       _id
       username
-      quizzes {
+      quizzes(offset: $offset, limit: $limit) {
         _id
         title
         questions {

@@ -45,8 +45,9 @@ export default function QuizCreator() {
     });
   };
 
-  if (loadedQuiz._id) {
+  if (loadedQuiz._id || loadedQuiz.author) {
     delete loadedQuiz._id;
+    delete loadedQuiz.author;
   };
 
   useEffect(() => {
@@ -63,6 +64,8 @@ export default function QuizCreator() {
   const [currentAnswer, setCurrentAnswer] = useState({});
 
   const [redirect, setRedirect] = useState(false);
+
+  console.log(quiz);
 
   function addQuestion() {
     const newQuestionList = quiz.questions;
