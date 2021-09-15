@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useState, useEffect } from 'react';
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,7 +11,7 @@ import { GET_ME } from "../../utils/queries";
 export default function QuizList() {
   const [deleteQuiz] = useMutation(DELETE_QUIZ);
 
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState("");
 
   const { loading, data, refetch } = useQuery(GET_ME);
 
@@ -32,6 +33,7 @@ export default function QuizList() {
     localStorage.setItem('quiz', JSON.stringify(quiz));
     setRedirect(true);
   };
+
 
   async function handleQuizDelete(quiz, e) {
     e.stopPropagation();
@@ -57,12 +59,14 @@ export default function QuizList() {
           <div className="mt-5 flex flex-col space-y-3 container">
             {quizData.map((quiz) => {
               return (
-                <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+                <Link to={`/quiz/${quiz._id}`}>
+                <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                   <span>{quiz.title}</span>
                   <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
                     <span><FontAwesomeIcon icon={faTimes} /></span>
                   </div>
                 </div>
+                </Link>
               )
             })}
           </div>
