@@ -22,7 +22,9 @@ export default function QuizList() {
 
   if (loading) {
     return (
-      <h2 className="text-xl font-bold">Loading</h2>
+      <div className="h-auto overflow-y-auto md:h-1/2 p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
+        <h2 className="text-xl font-bold">Loading</h2>
+      </div>
     );
   };
 
@@ -55,7 +57,7 @@ export default function QuizList() {
           <div className="mt-5 flex flex-col space-y-3 container">
             {quizData.map((quiz) => {
               return (
-                <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-red-500 hover:bg-red-700 hover:shadow-sm transition duration-200 px-2 py-1">
+                <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                   <span>{quiz.title}</span>
                   <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
                     <span><FontAwesomeIcon icon={faTimes} /></span>

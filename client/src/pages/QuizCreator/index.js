@@ -189,7 +189,7 @@ export default function QuizCreator() {
             <div className="space-y-2 flex flex-col">
               {quiz.questions.length ? quiz.questions.map((question) => {
                 return (
-                  <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-gold shadow-md" : "bg-theme-lightergold hover:bg-theme-darkergold"} rounded p-2 transition duration-200`} key={question.index}>
+                  <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-magenta shadow-md" : "bg-theme-lightmagenta hover:bg-theme-darkmagenta"} rounded p-2 transition duration-200`} key={question.index}>
                     <span><strong>{question.index}. ) </strong>{question.questionText}</span>
                     <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1">
                       <span><FontAwesomeIcon icon={faTimes} /></span>
@@ -213,7 +213,7 @@ export default function QuizCreator() {
 
                 {/* Answers List */}
 
-                <div className="rounded container border-2 border-theme-aliceblue bg-theme-berry p-2 mt-3">
+                <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
                   <span className="font-semibold text-lg">Answers</span>
                   <div className="space-y-2">
                     {currentQuestion.answers.map((answer, index) => {
@@ -253,7 +253,7 @@ export default function QuizCreator() {
                 <form>
                   <textarea className="text-black w-full rounded p-1" type="text" value={currentAnswer.answerText} placeholder="Answer" onChange={(e) => setCurrentAnswer({ ...currentAnswer, answerText: e.target.value })} />
                 </form>
-                <button className="mt-4 w-full rounded bg-blue-600 hover:bg-blue-800 py-1 font-semibold transition duration-200" onClick={() => updateAnswer()}>Update Answer</button>
+                <button className="mt-4 w-full rounded hover:bg-theme-darkroyal bg-theme-royalpurple py-1 font-semibold transition duration-200" onClick={() => updateAnswer()}>Update Answer</button>
               </div>
             ) : (
               <p>Select an answer to edit</p>
