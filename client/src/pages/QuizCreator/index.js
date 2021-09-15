@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from "react-router";
 import { useMutation } from '@apollo/client';
 import { CREATE_QUIZ } from '../../utils/mutations';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
+import Alert from '../../components/Alert';
+
 export default function QuizCreator() {
-  const [createQuiz] = useMutation(CREATE_QUIZ);
+  const [createQuiz, {error}] = useMutation(CREATE_QUIZ);
+
+  const [alert, setAlert] = useState({show: false, message:""})
 
   const baseQuiz = {
     title: "",
@@ -45,6 +49,13 @@ export default function QuizCreator() {
     delete loadedQuiz._id;
     delete loadedQuiz.author;
   };
+
+  useEffect(() => {
+    if(error) {
+      console.log(error.message)
+      setAlert({show: true, message: error.message})
+    }
+  }, [error])
 
   const [quiz, setQuiz] = useState(loadedQuiz);
 
@@ -266,6 +277,11 @@ export default function QuizCreator() {
         <div className="text-center">
           {quiz.questions.length >= 3 ? <button onClick={() => handleQuizCreate()} className="rounded bg-green-500 hover:bg-green-700 mx-auto font-bold text-lg mt-10 py-3 px-20 transition duration-200">Create Quiz</button> : null}
         </div>
+        {alert.show ?
+        <div>
+          <Alert message={alert.message} hideFunction={() => setAlert({show: false, message:""})} />
+        </div>
+        : null}
       </div>
     </div>
   )

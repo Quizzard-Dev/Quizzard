@@ -15,6 +15,7 @@ const typeDefs = gql`
         author: String
         createdAt: String
         questions: [Question]
+        scores: [Score]
     }
 
     type Answer {
@@ -27,6 +28,11 @@ const typeDefs = gql`
         questionText: String
         answers: [Answer]
         index: Int
+    }
+
+    type Score {
+        username: String
+        percent: Float
     }
 
     input AnswerInput {
@@ -46,9 +52,24 @@ const typeDefs = gql`
          user: User
     }
 
+    type GradedAnswer {
+        questionIndex: Int
+        correct: Boolean
+    }
+
+    type Grade {
+        percentage: Float
+        results: [GradedAnswer]
+    }
+
     input QuizInput {
         title: String
         questions: [QuestionInput]
+    }
+
+    input submittedAnswer {
+        questionIndex: Int
+        chosenAnswer: Int
     }
 
     type Query {
@@ -65,6 +86,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createQuiz(input: QuizInput!): Quiz
         deleteQuiz(quizId: ID!): Quiz
+        submitQuiz(quizId: ID!, answers: [submittedAnswer]): Grade
     }
 `
 

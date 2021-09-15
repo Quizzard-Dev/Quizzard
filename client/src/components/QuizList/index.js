@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useState, useEffect } from 'react';
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +12,7 @@ import Auth from "../../utils/auth";
 export default function QuizList() {
   const [deleteQuiz] = useMutation(DELETE_QUIZ);
 
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState("");
 
   const { loading, data, refetch, fetchMore } = useQuery(GET_QUIZZES, {
     variables: { 
@@ -41,6 +42,7 @@ export default function QuizList() {
     setRedirect(true);
   };
 
+
   async function handleQuizDelete(quiz, e) {
     e.stopPropagation();
     const { data } = await deleteQuiz({
@@ -65,12 +67,14 @@ export default function QuizList() {
           <div className="mt-5 flex flex-col space-y-3 container">
             {quizData.map((quiz, i) => {
               return (
-                <div key={i} onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
-                  <span>{quiz.title}</span>
-                  <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
-                    <span><FontAwesomeIcon icon={faTimes} /></span>
+                <Link key={i} to={`/quiz/${quiz._id}`}>
+                  <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+                    <span>{quiz.title}</span>
+                    <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
+                      <span><FontAwesomeIcon icon={faTimes} /></span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               )
             })}
           </div>

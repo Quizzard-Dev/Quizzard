@@ -51,3 +51,15 @@ export const DELETE_QUIZ = gql`
     }
   }
 `
+
+export const SUBMIT_QUIZ = gql`
+  mutation submitQuiz($quizId: ID!, $answers: [submittedAnswer]) {
+    submitQuiz(quizId: $quizId, answers: $answers) {
+      percentage
+      results {
+        questionIndex
+        correct
+      }
+    }
+  }
+`
