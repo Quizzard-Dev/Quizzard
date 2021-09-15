@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import { useQuery } from '@apollo/client';
 
-// import { SEARCH_QUIZZES } from '../../utils/queries';
+import SearchResults from '../../components/SearchResults';
 import Auth from '../../utils/auth';
 import QuizList from '../../components/QuizList';
 
 export default function Dashboard() {
   const [searchInput, setSearchInput] = useState('');
 
-  // const { loading, data, error } = useQuery(SEARCH_QUIZZES);
+  function useForceUpdate() {
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+  }
 
+  const forceUpdate = useForceUpdate();
+  
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   }
-
+  
   const handleKeyPress = (event) => {
     if (event.keyCode === 13) {
+      window.location.reload(false);
       handleSearchSubmit();
     }
   };
@@ -34,42 +39,46 @@ export default function Dashboard() {
           <form className='h-10 md:h-ten'>
             <input 
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
               onKeyPress={handleKeyPress}
               type='text'
               className='w-full bg-theme-aliceblue placeholder-gray-400 placeholder-opacity-70 p-3 rounded'
               placeholder='Search for topics!'
             />
           </form>
-          <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
-            Top Quizzes
-          </div>
+          {!(searchInput === "") ? <SearchResults input={searchInput} /> : (
+            <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+              Top Quizzes
+            </div>
+          )}
         </div>
         <div className='flex flex-wrap space-y-0 md:space-y-4 text-center'>
           <div className='h-ten w-full mt-12 md:mt-0 grid grid-flow-col grid-cols-2 gap-3'>
             <Link to='/creator'>
-              <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                 <p>
                   Create a quiz
                 </p>
               </button>
             </Link>
             <Link to='/' onClick={Auth.logout}>
-              <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                 <p>
                   Log out
                 </p>
               </button>
             </Link>
             <Link to='/'>
-              <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
                     Third button
                   </p>
               </button>
             </Link>
             <Link to='/'>
-              <button className='w-full p-1 md:p-3 bg-theme-main rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                 <p>
                   Fourth button
                 </p>

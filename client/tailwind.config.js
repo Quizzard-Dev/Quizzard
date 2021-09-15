@@ -17,9 +17,6 @@ module.exports = {
           darkerpurple: "#5731EB",
           royalpurple: "#7222D4",
           darkroyal: "#501894",
-          lightergold: "#A1872A",
-          gold: "#D4B337",
-          darkergold: "#876D08",
           berry: "#7A4B78",
           lightmagenta: "#C73EC0",
           magenta: "#AD13A5",
@@ -27,7 +24,7 @@ module.exports = {
           grass: "#76C752",
           forest: "#5A7A4B",
           aliceblue: "#F0F8FF",
-          smoke: "rgba(0, 0, 0, 0.25)"
+          smoke: "rgba(0, 0, 0, 0.33)"
         }
       },
       height: {
