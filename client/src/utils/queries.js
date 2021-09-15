@@ -43,6 +43,7 @@ export const GET_QUIZ = gql`
             _id
             title
             author
+            createdAt
             questions {
                 questionText
                 index
@@ -51,6 +52,10 @@ export const GET_QUIZ = gql`
                     index
                     isCorrect
                 }
+            }
+            scores {
+                username
+                percent
             }
         }
     }

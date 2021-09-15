@@ -42,6 +42,20 @@ const quizSchema = new Schema({
                 }
             ]
         }
+    ],
+    scores: [
+        {
+            username: {
+                type: String
+            },
+            percent: {
+                type: Number
+            },
+            time: {
+                type: Date,
+                default: Date.now()
+            }
+        }
     ]
 })
 

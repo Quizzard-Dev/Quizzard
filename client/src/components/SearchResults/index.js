@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,6 +30,7 @@ export default function SearchResults({ input }) {
           <div className='flex flex-col space-y-3 container'>
             {searchData.map((quiz) => {
               return(
+                <Link to={`/quiz/${quiz._id}`}>
                 <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                   <span>{quiz.title}</span>
                   <span>{quiz.author}</span>
@@ -36,6 +38,7 @@ export default function SearchResults({ input }) {
                     <span><FontAwesomeIcon icon={faChevronRight} /></span>
                   </div>
                 </div>
+                </Link>
               )
             })}
           </div>

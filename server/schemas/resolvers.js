@@ -114,6 +114,13 @@ const resolvers = {
           }
         })
         console.log(grades)
+        const loadedScore = quiz.scores.find(score => score.username === context.user.username)
+        if(loadedScore) {
+          const delIndex = quiz.scores.indexOf(loadedScore)
+          quiz.scores.splice(delIndex, 1)
+        }
+        quiz.scores.unshift({username: context.user.username, percent: (numCorrect / correctAnswers.length)})
+        await quiz.save()
         return ({percentage: (numCorrect / correctAnswers.length), results: grades})
       }
       throw new AuthenticationError('You need to be logged in!');

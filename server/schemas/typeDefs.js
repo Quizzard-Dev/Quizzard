@@ -15,6 +15,7 @@ const typeDefs = gql`
         author: String
         createdAt: String
         questions: [Question]
+        scores: [Score]
     }
 
     type Answer {
@@ -27,6 +28,11 @@ const typeDefs = gql`
         questionText: String
         answers: [Answer]
         index: Int
+    }
+
+    type Score {
+        username: String
+        percent: Float
     }
 
     input AnswerInput {
