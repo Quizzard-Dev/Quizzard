@@ -5,20 +5,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { DELETE_QUIZ } from "../../utils/mutations";
-import { GET_ME } from "../../utils/queries";
+import { GET_QUIZZES } from "../../utils/queries";
+import Auth from "../../utils/auth";
 
 export default function QuizList() {
   const [deleteQuiz] = useMutation(DELETE_QUIZ);
 
   const [redirect, setRedirect] = useState(false);
 
-  const { loading, data, refetch } = useQuery(GET_ME);
-
+  const { loading, data, refetch, fetchMore } = useQuery(GET_QUIZZES, {
+    variables: { 
+      authorId: Auth.getProfile().data._id, 
+      offset: 0, 
+      limit: 10
+    },
+    fetchPolicy: "cache-and-network"
+  });
+  
   useEffect(() => {
     refetch();
   }, [data]);
-
-  let quizData = data?.me?.quizzes || {};
+  
+  let quizData = data?.quizzes || [];
 
   if (loading) {
     return (
@@ -55,9 +63,9 @@ export default function QuizList() {
         ? (<div>
           <span>{`You have ${quizData.length} Saved Quizzes`}</span>
           <div className="mt-5 flex flex-col space-y-3 container">
-            {quizData.map((quiz) => {
+            {quizData.map((quiz, i) => {
               return (
-                <div onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+                <div key={i} onClick={() => handleQuizEdit(quiz)} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                   <span>{quiz.title}</span>
                   <div className="px-1" onClick={(e) => handleQuizDelete(quiz, e)}>
                     <span><FontAwesomeIcon icon={faTimes} /></span>

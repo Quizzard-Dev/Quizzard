@@ -10,6 +10,7 @@ import {
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from '@apollo/client/link/context';
+import { relayStylePagination } from '@apollo/client/utilities';
 
 import MainNavbar from './components/MainNavbar';
 import Splash from './pages/Splash';
@@ -45,7 +46,15 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(link),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          quizzes: relayStylePagination(),
+        },
+      },
+    },
+  }),
 });
 
 function App() {

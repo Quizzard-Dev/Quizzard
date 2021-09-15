@@ -9,11 +9,12 @@ const resolvers = {
     },
 
     user: async (parent, { userId }) => {
-      return await User.findOne({ _id: userId }).populate('quizzes')
+      return await User.findOne({ _id: userId }).populate('quizzes');
     },
 
-    quizzes: async () => {
-      return await Quiz.find({});
+    quizzes: async (parent, args) => {
+      const quizData = await User.findOne({ _id: args.authorId }).populate('quizzes');
+      return quizData.quizzes;
     },
 
     quiz: async (parent, { quizId }) => {
