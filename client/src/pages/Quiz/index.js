@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { Redirect } from "react-router";
+import Auth from "../../utils/auth";
 
 import { GET_QUIZ } from "../../utils/queries";
 import { SUBMIT_QUIZ } from "../../utils/mutations";
@@ -18,6 +20,8 @@ export default function Quiz() {
   const [alert, setAlert] = useState({show: false, message:""})
 
   const [started, setStarted] = useState(false)
+
+  const [redirect, setRedirect] = useState(false)
 
   const [submitQuiz] = useMutation(SUBMIT_QUIZ)
 
@@ -71,6 +75,24 @@ export default function Quiz() {
       return data.quiz.questions[questionIndex - 1].answers[chosenIndex - 1]?.answerText
   }
 
+  function gradeColor(percentage) {
+    if(percentage == 1) {
+      return "theme-magenta"
+    }
+    else if(percentage >= 0.85) {
+      return "green-500"
+    }
+    else if (percentage >= 0.7) {
+      return "yellow-300"
+    }
+    else if (percentage >= 0.6) {
+      return "yellow-600"
+    }
+    else {
+      return "red-700"
+    }
+  }
+
   async function gradeQuiz() {
       let valid = true
       answers.forEach(answer => {
@@ -88,6 +110,11 @@ export default function Quiz() {
           setAlert({show: true, message: "You have unanswered questions!"})
       }
   }
+
+  function handleQuizEdit() {
+    localStorage.setItem('quiz', JSON.stringify(data?.quiz));
+    setRedirect(true);
+  };
 
   function Answers({ question, answersList }) {
     if (question.answers) {
@@ -111,10 +138,16 @@ export default function Quiz() {
     );
   };
 
+  if (redirect) {
+    return <Redirect to="/creator" />;
+  };
+
   if (loading) {
     return (
-        <div className='min-h-screen items-center justify-center flex bg-theme-lighter'>
-        <span className="text-3xl">Loading...</span>
+      <div className='min-h-screen items-center justify-center flex bg-theme-lighter'>
+        <div className=" flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
+        </div>
       </div>
     );
   };
@@ -133,23 +166,22 @@ export default function Quiz() {
 
   return (
     <div className='items-center justify-center flex bg-theme-lighter'>
-      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-bluegray mx-1 md:mx-0 md:w-10/12">
-        <h3 className="text-3xl text-white font-main">{data.quiz.title}</h3>
-        <span>Created By: {data.quiz.author} on {data.quiz.createdAt}</span>
-        <div className="w-full p-3 container rounded bg-theme-lighter">
+      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
+        <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
         {!started && data ?
-        <div>
-        <div className="grid grid-cols-2 px-5 space-x-5">
-        <div className="w-full my-10 mx-auto p-3 bg-theme-royalpurple rounded">
-            <h2 className="text-lg text-white font-semibold underline">Description</h2>
+        <div className="w-full mx-auto">
+        <div className="grid grid-cols-2 px-5 gap-5">
+        <div className="w-full my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
+            <h2 className="text-xl font-bold text-theme-bluegray underline">Description</h2>
+            <p className="mx-3 py-3">{data.quiz.description}</p>
         </div>
-            <div className="w-full my-10 mx-auto p-3 bg-theme-royalpurple rounded">
-                <h2 className="text-lg text-white font-semibold underline">Recent Scores</h2>
+            <div className="w-full my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
+                <h2 className="text-xl text-theme-bluegray font-bold underline">Recent Scores</h2>
                 {data.quiz.scores.map(score => {
                     return (
                         <div className="flex justify-between w-1/2 mx-auto">
-                            <span>{score.username}</span>
-                            <span>{(score.percent * 100).toFixed()}%</span>
+                            <span className="text-lg font-semibold">{score.username}</span>
+                            <span className={`text-lg font-semibold text-${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
                         </div>
                     )
                 })}
@@ -157,13 +189,17 @@ export default function Quiz() {
         </div>
             <div className="text-center">
                 <button className="py-2 px-8 bg-theme-lightmagenta hover:bg-theme-magenta transition duration-200 rounded center" onClick={() => setStarted(true)}>Start Quiz</button>
+                {data.quiz.author === Auth.getProfile().data.username ?
+                <button className="py-2 px-8 bg-green-400 hover:bg-green-600 ml-5 transition duration-200 rounded center" onClick={() => handleQuizEdit()}>Copy and Edit</button>
+                : null
+                }
             </div>
         </div>
         : null
         }
-        {!grades.percentage && started
+        {!grades.results.length && started
         ? 
-        <div>
+        <div className="mt-10">
           <span>{currentQuestion.questionText}</span>
           <Answers question={currentQuestion} answersList={answers} />
           <div className="mt-10 items-center justify-center flex space-x-5">
@@ -181,9 +217,11 @@ export default function Quiz() {
           </div>
         </div>
         : null}
-        {grades.percentage ? 
-        <div className="space-y-2">
-            <span>You scored {(grades.percentage*100).toFixed()}%</span>
+        {grades.results.length ? 
+        <div className="space-y-2 mt-5">
+        <div className="text-center mb-5">
+            <span className="text-3xl">You scored <span className={`font-semibold text-${gradeColor(grades.percentage)}`}>{(grades.percentage*100).toFixed()}</span>%</span>
+        </div>
             {grades.results.map(grade => {
                 return (
                     <div className={`p-2 flex justify-between rounded ${grade.correct ? "bg-green-400" : "bg-red-600"}`}>
@@ -200,6 +238,8 @@ export default function Quiz() {
             <Alert message={alert.message} hideFunction={() => setAlert({show: false, message: ""})} />
         </div>
         : null}
+        <div className="text-right mt-5">
+          <span>Created By: {data.quiz.author} on {data.quiz.createdAt}</span>
         </div>
       </div>
     </div>

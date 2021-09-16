@@ -14,6 +14,7 @@ export default function QuizCreator() {
 
   const baseQuiz = {
     title: "",
+    description: "",
     questions: []
   };
 
@@ -49,6 +50,14 @@ export default function QuizCreator() {
     delete loadedQuiz._id;
     delete loadedQuiz.author;
   };
+
+  if(loadedQuiz.createdAt) {
+    delete loadedQuiz.createdAt
+  }
+
+  if(loadedQuiz.scores) {
+    delete loadedQuiz.scores
+  }
 
   useEffect(() => {
     if(error) {
@@ -192,6 +201,9 @@ export default function QuizCreator() {
           <h1 className="text-2xl font-bold text-center md:text-right mb-3">Quiz Creator</h1>
           <form>
             <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
+          </form>
+          <form>
+            <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.description} placeholder="Enter a Description..." onChange={(e) => setQuiz({ ...quiz, description: e.target.value })} />
           </form>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 mt-2 gap-3 text-theme-aliceblue">

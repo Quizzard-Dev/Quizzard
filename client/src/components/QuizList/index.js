@@ -23,9 +23,6 @@ export default function QuizList() {
     fetchPolicy: "cache-and-network"
   });
   
-  useEffect(() => {
-    refetch();
-  }, [data]);
   
   let quizData = data?.quizzes || [];
 
@@ -37,22 +34,26 @@ export default function QuizList() {
     );
   };
 
-  function handleQuizEdit(quiz) {
-    localStorage.setItem('quiz', JSON.stringify(quiz));
-    setRedirect(true);
-  };
-
-
   async function handleQuizDelete(quiz, e) {
     e.stopPropagation();
+    e.preventDefault();
     const { data } = await deleteQuiz({
       variables: { quizId: quiz._id }
     });
-    if (data) {
+    if(data) {
       refetch()
-    };
+    }
   };
 
+  if (loading) {
+    return (
+      <div className="h-auto overflow-y-auto flex justify-center md:h-1/2 p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
+        <div className=" flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
+        </div>
+      </div>
+    )
+  }
 
   if (redirect) {
     return <Redirect to="/creator" />;
