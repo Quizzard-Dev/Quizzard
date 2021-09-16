@@ -19,6 +19,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  quizzesTaken: {
+    type: Number,
+    default: 0
+  },
   quizzes: [
     {
       type: Schema.Types.ObjectId,

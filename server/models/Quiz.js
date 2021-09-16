@@ -8,6 +8,12 @@ const quizSchema = new Schema({
         minlength: 1,
         maxlength: 30
     },
+    description: {
+        type: String,
+        required: "Description is required!",
+        minlength: 10,
+        maxlength: 300
+    },
     author: {
         type: String,
         required: true
