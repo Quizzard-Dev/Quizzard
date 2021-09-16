@@ -28,16 +28,16 @@ export default function SearchResults({ input }) {
         <div>
           <span className='italic'>{`Search Results for '${input}'`}</span>
           <div className='flex flex-col space-y-3 container'>
-            {searchData.map((quiz) => {
+            {searchData.map((quiz, i) => {
               return(
-                <Link to={`/quiz/${quiz._id}`}>
-                <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
-                  <span>{quiz.title}</span>
-                  <span>{quiz.author}</span>
-                  <div>
-                    <span><FontAwesomeIcon icon={faChevronRight} /></span>
+                <Link to={`/quiz/${quiz._id}`} key={i}>
+                  <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+                    <span>{quiz.title}</span>
+                    <span>{quiz.author}</span>
+                    <div>
+                      <span><FontAwesomeIcon icon={faChevronRight} /></span>
+                    </div>
                   </div>
-                </div>
                 </Link>
               )
             })}

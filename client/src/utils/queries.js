@@ -28,8 +28,8 @@ export const GET_USER = gql`
 `;
 
 export const GET_QUIZZES = gql`
-    query quizzes($authorId: ID!, $offset: Int, $limit: Int) {
-        quizzes(authorId: $authorId, offset: $offset, limit: $limit) {
+    query quizzes($author: String!) {
+        quizzes(author: $author) {
             _id
             title
             author
@@ -37,7 +37,6 @@ export const GET_QUIZZES = gql`
                 questionText
                 answers {
                     answerText
-                    isCorrect
                 }
             }
         }
