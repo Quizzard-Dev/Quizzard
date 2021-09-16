@@ -23,9 +23,6 @@ export default function QuizList() {
     fetchPolicy: "cache-and-network"
   });
   
-  // useEffect(() => {
-  //   refetch();
-  // }, [data]);
   
   let quizData = data?.quizzes || [];
 
@@ -36,12 +33,6 @@ export default function QuizList() {
       </div>
     );
   };
-
-  function handleQuizEdit(quiz) {
-    localStorage.setItem('quiz', JSON.stringify(quiz));
-    setRedirect(true);
-  };
-
 
   async function handleQuizDelete(quiz, e) {
     e.stopPropagation();
