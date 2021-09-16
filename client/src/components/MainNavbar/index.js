@@ -46,7 +46,7 @@ export default function MainNavbar() {
       <div className='flex items-center justify-between mx-auto w-11/12 py-3'>
         <div>
           <Link to="/home">
-            <p className='tracking-widest text-theme-aliceblue font-main font-semibold text-xl' as={Link}>
+            <p className='tracking-widest text-theme-aliceblue font-title font-semibold text-xl' as={Link}>
               Quizzard
             </p>
           </Link>
@@ -58,7 +58,7 @@ export default function MainNavbar() {
             </>
           ) : (
             <>
-            <button className='openModal font-main text-center' onClick={openModal}>Log In | Sign Up</button>
+            <button className='openModal font-title text-center' onClick={openModal}>Log In | Sign Up</button>
             </>
           )}
         </div>

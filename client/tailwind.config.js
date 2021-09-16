@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      main: ["Playfair Display", "serif"]
+      title: ["Playfair Display", "serif"],
+      main: ["Libre Franklin", "sans-serif"]
     },
     extend: {
       colors: {
