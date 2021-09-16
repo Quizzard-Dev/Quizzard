@@ -48,35 +48,43 @@ export default function Dashboard() {
           )}
         </div>
         <div className='flex flex-wrap space-y-0 md:space-y-4 text-xs lg:text-sm text-center'>
-          <div className='h-ten w-full mt-12 md:mt-0 grid grid-flow-col grid-cols-1 gap-3'>
-            <Link to='/creator'>
-              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                <p>
-                  Create a quiz
-                </p>
-              </button>
-            </Link>
-            <Link to='/' onClick={Auth.logout}>
-              <button className='w-full p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                <p>
-                  Log out
-                </p>
-              </button>
-            </Link>
-            <Link to='/'>
-              <button className='w-auto p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+          <div className='h-ten w-auto flex lg:w-full mt-12 md:mt-0 gap-3'>
+            <div className='w-1/4'>
+              <Link to='/creator'>
+                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
-                    Third button
+                    Create a quiz
                   </p>
-              </button>
-            </Link>
-            <Link to='/'>
-              <button className='w-auto p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                <p>
-                  Fourth button
-                </p>
-              </button>
-            </Link>
+                </button>
+              </Link>
+            </div>
+            <div className='w-1/4'>
+              <Link to='/' onClick={Auth.logout}>
+                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                  <p>
+                    Log out
+                  </p>
+                </button>
+              </Link>
+            </div>
+            <div className='w-1/4'>
+              <Link to='/'>
+                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                    <p>
+                      Third button
+                    </p>
+                </button>
+              </Link>
+            </div>
+            <div className='w-1/4'>
+              <Link to='/'>
+                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                  <p>
+                    Fourth button
+                  </p>
+                </button>
+              </Link>
+            </div>
           </div>
           <div className='hidden md:grid h-ninety p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Categories

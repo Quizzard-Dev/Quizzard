@@ -32,7 +32,7 @@ export default function Dropdown() {
   return (
     <>
       <div className="flex flex-wrap px-4">
-      <div className="relative font-main inline-flex align-middle w-full">
+      <div className="relative font-title inline-flex align-middle w-full">
             <button
               className={dropdownPopoverShow ?
                 "text-theme-aliceblue text-sm px-4 py-2 rounded-t shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 dropdownbtn bg-theme-darker" :

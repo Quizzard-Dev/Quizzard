@@ -1,6 +1,6 @@
 import React from 'react';
-import {Redirect} from "react-router"
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Redirect } from "react-router";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -46,22 +46,14 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(link),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          quizzes: relayStylePagination(),
-        },
-      },
-    },
-  }),
+  cache: new InMemoryCache(),
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
+        <div className="font-main tracking-wide">
           <MainNavbar />
           <Switch>
             <Route exact path='/' component={Splash} />
@@ -70,7 +62,7 @@ function App() {
             <Route path="/creator" component={QuizCreator} />
             <Route path="/quiz/:id" component={Quiz}/>
           </Switch>
-        </>
+        </div>
       </Router>
     </ApolloProvider>
   );

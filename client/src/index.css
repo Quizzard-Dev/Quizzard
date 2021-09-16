@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap");
 
 body {
   background-color: #91B0EE;
+  font-family: 'Libre Franklin', sans-serif;
 }
 
 html {
