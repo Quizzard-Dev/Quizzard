@@ -50,6 +50,7 @@ export const GET_QUIZ = gql`
             title
             author
             createdAt
+            description
             questions {
                 questionText
                 index

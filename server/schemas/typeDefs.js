@@ -6,12 +6,14 @@ const typeDefs = gql`
         username: String!
         email: String!
         password: String
+        quizzesTaken: Int
         quizzes: [Quiz]
     }
 
     type Quiz {
         _id: ID!
         title: String
+        description: String
         author: String
         createdAt: String
         questions: [Question]
@@ -64,6 +66,7 @@ const typeDefs = gql`
 
     input QuizInput {
         title: String
+        description: String
         questions: [QuestionInput]
     }
 

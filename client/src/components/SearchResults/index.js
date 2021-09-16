@@ -14,9 +14,11 @@ export default function SearchResults({ input }) {
   let searchData = data?.searchQuizzes || [];
 
   if (loading) {
-    return(
-      <div className="h-auto overflow-y-auto p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
-        <h2 className="text-xl font-bold">Loading</h2>
+    return (
+      <div className='h-2/3 md:h-ninety p-5 justify-center flex items-center overflow-y-auto bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+        <div className=" flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
+        </div>
       </div>
     )
   }

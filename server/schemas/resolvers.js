@@ -116,13 +116,20 @@ const resolvers = {
             grades.push({questionIndex: answer.questionIndex, correct: false})
           }
         })
-        console.log(grades)
         const loadedScore = quiz.scores.find(score => score.username === context.user.username)
         if(loadedScore) {
           const delIndex = quiz.scores.indexOf(loadedScore)
           quiz.scores.splice(delIndex, 1)
         }
+        else {
+          const user = await User.findOne({_id: context.user._id})
+          user.quizzesTaken ++;
+          await user.save()
+        }
         quiz.scores.unshift({username: context.user.username, percent: (numCorrect / correctAnswers.length)})
+        if(quiz.scores.length > 10) {
+          quiz.scores.length = 10
+        }
         await quiz.save()
         return ({percentage: (numCorrect / correctAnswers.length), results: grades})
       }
