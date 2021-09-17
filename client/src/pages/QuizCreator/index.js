@@ -3,7 +3,8 @@ import { Redirect } from "react-router";
 import { useMutation } from '@apollo/client';
 import { CREATE_QUIZ } from '../../utils/mutations';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Hint } from 'react-autocomplete-hint';
 
 import Alert from '../../components/Alert';
 
@@ -15,6 +16,7 @@ export default function QuizCreator() {
   const baseQuiz = {
     title: "",
     description: "",
+    tags: [],
     questions: []
   };
 
@@ -29,6 +31,16 @@ export default function QuizCreator() {
     isCorrect: false,
     index: 0
   };
+
+  const tags = [
+    "Programming",
+    "Movies",
+    "Television",
+    "Math",
+    "History",
+    "Science",
+    "Geography"
+  ]
 
   const loadedQuiz = localStorage.getItem('quiz')
     ? JSON.parse(localStorage.getItem('quiz'))
@@ -59,9 +71,12 @@ export default function QuizCreator() {
     delete loadedQuiz.scores
   }
 
+  if(!loadedQuiz.tags) {
+    loadedQuiz.tags = []
+  }
+
   useEffect(() => {
     if(error) {
-      console.log(error.message)
       setAlert({show: true, message: error.message})
     }
   }, [error])
@@ -71,6 +86,8 @@ export default function QuizCreator() {
   const [currentQuestion, setCurrentQuestion] = useState({});
 
   const [currentAnswer, setCurrentAnswer] = useState({});
+
+  const [tagText, setTagText] = useState("")
 
   const [redirect, setRedirect] = useState(false);
 
@@ -169,6 +186,65 @@ export default function QuizCreator() {
 
   }
 
+  function handleQuizValidate() {
+    let valid = true
+    if(!quiz.title) {
+      valid = false;
+      setAlert({show: true, message: "You need a title!"})
+    }
+    if(!(quiz.description.length >= 10)) {
+      valid = false;
+      setAlert({show: true, message: "You need a Description of at least 10 characters!"})
+    }
+    if(!(quiz.questions.length >= 3)) {
+      valid = false;
+      setAlert({show: true, message: "You need at least 3 questions!"})
+    }
+    if(!quiz.tags.length) {
+      valid = false;
+      setAlert({show: true, message: "At least 1 tag is required!"})
+    }
+    quiz.questions.forEach(question => {
+      if(!(question.answers.length >= 2)) {
+        valid= false;
+        setAlert({show: true, message: "Each question must have at least 2 answers!"})
+      }
+    })
+    if(valid) {
+      handleQuizCreate()
+    }
+  }
+
+  function deleteTag(tag) {
+    const newTags = quiz.tags
+    const delIndex = newTags.indexOf(tag)
+    newTags.splice(delIndex, 1)
+    setQuiz({...quiz, tags: newTags})
+  }
+
+  function handleTagSubmit() {
+    const newTags = quiz.tags
+    if(newTags.length < 5) {
+      if(tagText.length < 13) {
+        newTags.push(tagText)
+        setQuiz({...quiz, tags: newTags})
+      }
+      else {
+        setAlert({show: true, message:"Maximum tag length is 12 characters!"})
+      }
+    }
+    else {
+      setAlert({show: true, message:"Maximum allowed tags is 5!"})
+    }
+    setTagText("")
+  }
+
+  function handleTagInputEnter(e) {
+    if(e.key === "Enter") {
+      handleTagSubmit()
+    }
+  }
+
   async function handleQuizCreate() {
     const { data } = await createQuiz({
       variables: { input: quiz }
@@ -197,16 +273,8 @@ export default function QuizCreator() {
   return (
     <div className='min-h-screen flex bg-theme-lighter'>
       <div className="bg-theme-bluegray border-2 md:border-4 border-theme-main mt-20 w-full rounded shadow-lg p-5 m-5">
-        <div className='mb-3'>
-          <h1 className="text-2xl md:text-3xl font-title font-semibold text-center mb-3">Quiz Creator</h1>
-          <div className='inline md:flex justify-center p-3'>
-            <form className='md:mr-3'>
-              <input className="bg-theme-aliceblue hover:bg-gray-200 transition duration-200 w-full md:w-80 lg:w-onetwelve rounded-lg" type="text" value={quiz.title} placeholder="Give your quiz a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
-            </form>
-            <form>
-              <input className="bg-theme-aliceblue hover:bg-gray-200 transition duration-200 w-full md:w-80 lg:w-onetwelve rounded-lg" type="text" value={quiz.description} placeholder="Enter a description..." onChange={(e) => setQuiz({ ...quiz, description: e.target.value })} />
-            </form>
-          </div>
+        <div className='mb-3 md:flex md:justify-between'>
+          <h1 className="text-2xl font-bold font-title text-center md:text-right mb-3">Quiz Creator</h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 mt-2 gap-3 text-theme-aliceblue">
 
@@ -296,11 +364,44 @@ export default function QuizCreator() {
             )}
           </div>
         </div>
+        <div className="flex flex-wrap justify-center mt-8 gap-3 lg:gap-10">
+        <div>
+          <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
+        </div>
+          <div>
+           <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.description} placeholder="Enter a Description..." onChange={(e) => setQuiz({ ...quiz, description: e.target.value })} />
+          </div>
+          <div className="justify-center">
+          <Hint options={tags} allowTabFill>
+            <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg"
+              value={tagText}
+              type="text"
+              placeholder="Add tags..."
+              onChange={e => setTagText(e.target.value)}
+              onKeyDown={e => handleTagInputEnter(e)}
+            />
+          </Hint>
+          {quiz.tags.length ? 
+          <div className="grid grid-cols-3 w-full gap-2 mt-3 flex-grow-0">
+            {quiz.tags.map(tag => {
+              return(
+                <div className="p-1 rounded-xl text-sm bg-theme-magenta flex justify-between">
+                <span className="overflow-x-hidden max-w-sm">{tag}</span>
+                <div onClick={() => deleteTag(tag)} className="px-1">
+                  <span><FontAwesomeIcon icon={faTimes} /></span>
+                </div>
+                </div>
+              )
+            })}
+          </div>
+          : null}
+          </div>
+        </div>
         <div className="text-center">
-          {quiz.questions.length >= 3 ? <button onClick={() => handleQuizCreate()} className="rounded bg-green-500 hover:bg-green-700 mx-auto font-bold text-lg mt-10 py-3 px-20 transition duration-200">Create Quiz</button> : null}
+          <button disabled={quiz.questions.length < 3 ? true : false} onClick={() => handleQuizValidate()} className={`rounded ${quiz.questions.length >= 3 ? "bg-green-500 hover:bg-green-700" : "bg-gray-500"} mx-auto font-bold text-lg mt-10 py-3 px-20 transition duration-200`}>Create Quiz</button>
         </div>
         {alert.show ?
-        <div>
+        <div className="mt-8">
           <Alert message={alert.message} hideFunction={() => setAlert({show: false, message:""})} />
         </div>
         : null}
