@@ -58,7 +58,7 @@ export default function MainNavbar() {
             </>
           ) : (
             <>
-            <button className='openModal font-title text-center' onClick={openModal}>Log In | Sign Up</button>
+            <button className='openModal font-main text-center' onClick={openModal}>Log In | Sign Up</button>
             </>
           )}
         </div>

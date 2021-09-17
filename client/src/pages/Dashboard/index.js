@@ -7,17 +7,6 @@ import QuizList from '../../components/QuizList';
 
 export default function Dashboard() {
   const [searchInput, setSearchInput] = useState('');
-  
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-  }
-  
-  const handleKeyPress = (event) => {
-    if (event.keyCode === 13) {
-      window.location.reload(false);
-      handleSearchSubmit();
-    }
-  };
 
   let token = localStorage.getItem('id_token');
   
@@ -28,14 +17,13 @@ export default function Dashboard() {
   return (
     <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
       <div className='h-auto md:h-eightyvh m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
-        <div className='text-center h-full space-y-4 mt-20 md:mt-0 mb-14'>
+        <div className='text-center h-full space-y-4 mt-20 md:mt-0'>
           <form className='h-10 md:h-ten'>
             <input 
               value={searchInput}
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
-              onKeyPress={handleKeyPress}
               type='text'
               className='w-full bg-theme-aliceblue placeholder-gray-400 placeholder-opacity-70 p-3 rounded'
               placeholder='Search for topics!'
@@ -49,7 +37,7 @@ export default function Dashboard() {
         </div>
         <div className='flex flex-wrap space-y-0 md:space-y-4 text-xs lg:text-sm text-center'>
           <div className='h-ten w-auto flex lg:w-full mt-12 md:mt-0 gap-3'>
-            <div className='w-1/4'>
+            <div className='w-1/3'>
               <Link to='/creator'>
                 <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
@@ -58,7 +46,7 @@ export default function Dashboard() {
                 </button>
               </Link>
             </div>
-            <div className='w-1/4'>
+            <div className='w-1/3'>
               <Link to='/' onClick={Auth.logout}>
                 <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
@@ -67,21 +55,12 @@ export default function Dashboard() {
                 </button>
               </Link>
             </div>
-            <div className='w-1/4'>
+            <div className='w-1/3'>
               <Link to='/'>
                 <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                     <p>
                       Third button
                     </p>
-                </button>
-              </Link>
-            </div>
-            <div className='w-1/4'>
-              <Link to='/'>
-                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                  <p>
-                    Fourth button
-                  </p>
                 </button>
               </Link>
             </div>
