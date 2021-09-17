@@ -5,6 +5,7 @@ const quizSchema = new Schema({
     title: {
         type: String,
         required: "You need a title!",
+        unique: false,
         minlength: 1,
         maxlength: 30
     },
@@ -62,7 +63,10 @@ const quizSchema = new Schema({
                 default: Date.now()
             }
         }
-    ]
+    ],
+    tags: [{
+        type: String
+    }]
 })
 
 const Quiz = model('Quiz', quizSchema);

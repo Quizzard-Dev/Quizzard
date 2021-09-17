@@ -75,7 +75,7 @@ const resolvers = {
       if (context.user) {
         console.log(context.user)
         const quiz = await Quiz.create({ ...input, author: context.user.username });
-        const author = await User.findOneAndUpdate({ _id: context.user._id },
+        await User.findOneAndUpdate({ _id: context.user._id },
           { $addToSet: { quizzes: quiz._id } })
         return quiz
       }
@@ -86,6 +86,10 @@ const resolvers = {
       if (context.user) {
         const quiz = await Quiz.findOne({ _id: quizId })
         if (context.user.username === quiz.author) {
+          const user = await User.findOne({_id: context.user._id})
+          const quizIndex = user.quizzes.indexOf(quizId)
+          user.quizzes.splice(quizIndex, 1)
+          await user.save()
           return await Quiz.findOneAndDelete({ _id: quizId });
         }
         throw new AuthenticationError('Incorrect credentials');

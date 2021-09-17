@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Redirect } from "react-router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 import Auth from "../../utils/auth";
 
 import { GET_QUIZ } from "../../utils/queries";
@@ -77,19 +79,19 @@ export default function Quiz() {
 
   function gradeColor(percentage) {
     if(percentage == 1) {
-      return "theme-magenta"
+      return "text-theme-magenta"
     }
     else if(percentage >= 0.85) {
-      return "green-500"
+      return "text-green-500"
     }
     else if (percentage >= 0.7) {
-      return "yellow-300"
+      return "text-yellow-300"
     }
     else if (percentage >= 0.6) {
-      return "yellow-600"
+      return "text-yellow-600"
     }
     else {
-      return "red-700"
+      return "text-red-700"
     }
   }
 
@@ -167,7 +169,22 @@ export default function Quiz() {
   return (
     <div className='items-center justify-center flex bg-theme-lighter'>
       <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
+      <div className="md:flex md:justify-between">
         <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
+        {data.quiz.tags ? 
+          <div className="grid grid-cols-3 md:w-2/6 gap-2 mt-3 flex-grow-0">
+            {data.quiz.tags.map(tag => {
+              return(
+                <div className="p-1 rounded-xl text-sm bg-theme-magenta flex justify-between">
+                <span className="overflow-x-hidden max-w-sm">{tag}</span>
+                <span><FontAwesomeIcon icon={faTag} /></span>
+                </div>
+              )
+            })}
+          </div>
+        : null}
+
+      </div>
         {!started && data ?
         <div className="w-full mx-auto">
         <div className="grid grid-cols-2 px-5 gap-5">
@@ -181,7 +198,7 @@ export default function Quiz() {
                     return (
                         <div className="flex justify-between w-1/2 mx-auto">
                             <span className="text-lg font-semibold">{score.username}</span>
-                            <span className={`text-lg font-semibold text-${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
+                            <span className={`text-lg font-semibold ${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
                         </div>
                     )
                 })}
@@ -220,7 +237,7 @@ export default function Quiz() {
         {grades.results.length ? 
         <div className="space-y-2 mt-5">
         <div className="text-center mb-5">
-            <span className="text-3xl">You scored <span className={`font-semibold text-${gradeColor(grades.percentage)}`}>{(grades.percentage*100).toFixed()}</span>%</span>
+            <span className="text-3xl">You scored <span className={`font-semibold ${gradeColor(grades.percentage)}`}>{(grades.percentage*100).toFixed()}</span>%</span>
         </div>
             {grades.results.map(grade => {
                 return (

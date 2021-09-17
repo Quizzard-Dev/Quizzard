@@ -13,6 +13,7 @@ const typeDefs = gql`
     type Quiz {
         _id: ID!
         title: String
+        tags: [String]
         description: String
         author: String
         createdAt: String
@@ -67,6 +68,7 @@ const typeDefs = gql`
     input QuizInput {
         title: String
         description: String
+        tags: [String]
         questions: [QuestionInput]
     }
 
