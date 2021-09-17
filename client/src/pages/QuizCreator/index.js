@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { useMutation } from '@apollo/client';
 import { CREATE_QUIZ } from '../../utils/mutations';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Hint } from 'react-autocomplete-hint';
 
 import Alert from '../../components/Alert';

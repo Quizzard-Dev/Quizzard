@@ -32,11 +32,15 @@ export const GET_QUIZZES = gql`
         quizzes(author: $author) {
             _id
             title
+            tags
+            description
             author
             questions {
                 questionText
+                index
                 answers {
                     answerText
+                    index
                 }
             }
         }
