@@ -30,6 +30,14 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build'), function(err) {
+       if (err) {
+        res.status(500).send(err)
+       }
+     })
+  })
+
 db.once('open', () => {
     app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);

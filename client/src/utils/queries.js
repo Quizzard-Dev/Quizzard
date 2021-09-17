@@ -40,6 +40,7 @@ export const GET_QUIZZES = gql`
                 index
                 answers {
                     answerText
+                    isCorrect
                     index
                 }
             }

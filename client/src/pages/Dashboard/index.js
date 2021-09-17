@@ -15,8 +15,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
-      <div className='h-auto md:h-eightyvh m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
+    <div className='min-h-screen flex md:pt-16 justify-center bg-theme-lighter'>
+      <div className='h-auto w-full md:h-eightyvh m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
         <div className='text-center h-full space-y-4 mt-20 md:mt-0'>
           <form className='h-10 md:h-ten'>
             <input 
@@ -36,7 +36,7 @@ export default function Dashboard() {
           )}
         </div>
         <div className='flex flex-wrap space-y-0 md:space-y-4 text-xs lg:text-sm text-center'>
-          <div className='h-ten w-auto flex lg:w-full mt-12 md:mt-0 gap-3'>
+          <div className='h-ten w-auto flex lg:w-full mt-12 pt-10 md:pt-0 md:mt-0 gap-3'>
             <div className='w-1/3'>
               <Link to='/creator'>
                 <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
