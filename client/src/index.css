@@ -9,6 +9,10 @@ body {
   font-family: 'Libre Franklin', sans-serif;
 }
 
+button:disabled {
+  color: hsla(0, 0%, 95%, 0.5);
+}
+
 html {
   overflow:   auto;
 }

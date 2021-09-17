@@ -3,8 +3,8 @@ import { Redirect } from "react-router";
 import { useMutation } from '@apollo/client';
 import { CREATE_QUIZ } from '../../utils/mutations';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Hint } from 'react-autocomplete-hint';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import Alert from '../../components/Alert';
 
@@ -274,66 +274,72 @@ export default function QuizCreator() {
     <div className='min-h-screen flex bg-theme-lighter'>
       <div className="bg-theme-bluegray border-2 md:border-4 border-theme-main mt-20 w-full rounded shadow-lg p-5 m-5">
         <div className='mb-3 md:flex md:justify-between'>
-          <h1 className="text-2xl font-bold text-center md:text-right mb-3">Quiz Creator</h1>
+          <h1 className="text-2xl font-bold font-title text-center md:text-right mb-3">Quiz Creator</h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 mt-2 gap-3 text-theme-aliceblue">
 
           {/* Questions List */}
 
-          <div className="bg-theme-darker rounded-lg p-3">
+          <div className="bg-theme-complement rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question List</h2>
-            <div className="space-y-2 flex flex-col">
-              {quiz.questions.length ? quiz.questions.map((question) => {
-                return (
-                  <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-magenta shadow-md" : "bg-theme-lightmagenta hover:bg-theme-darkmagenta"} rounded p-2 transition duration-200`} key={question.index}>
-                    <span><strong>{question.index}. ) </strong>{question.questionText}</span>
-                    <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1">
-                      <span><FontAwesomeIcon icon={faTimes} /></span>
+            <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
+              <div className="space-y-2 flex flex-col">
+                {quiz.questions.length ? quiz.questions.map((question) => {
+                  return (
+                    <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-bluedarkgray shadow-md" : "bg-theme-bluemidgray hover:bg-theme-blueblack"} rounded p-2 transition duration-200`} key={question.index}>
+                      <span><strong>{question.index}. ) </strong>{question.questionText}</span>
+                      <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1">
+                        <span><FontAwesomeIcon icon={faTimes} /></span>
+                      </div>
                     </div>
-                  </div>
-                )
-              }) : <p>Add questions by clicking the button below</p>}
+                  )
+                }) : <p className='text-center italic'>Add questions by clicking the button below</p>}
+              </div>
+              <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-theme-forest bg-theme-grass transition duration-200" onClick={() => addQuestion()}>
+                <FontAwesomeIcon icon={faPlus}/> Question
+              </button>
             </div>
-            <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-theme-darkroyal bg-theme-royalpurple transition duration-200" onClick={() => addQuestion()}>Add Question</button>
           </div>
 
           {/* Question Editor */}
 
-          <div className="bg-theme-darkerer rounded-lg p-3">
+          <div className="bg-theme-complement rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question Editor</h2>
             {currentQuestion.index ? (
-              <div>
-                <form>
-                  <textarea className="text-black w-full rounded p-1" type="text" value={currentQuestion.questionText} placeholder="Make sure the correct answer is selected..." onChange={(e) => setCurrentQuestion({ ...currentQuestion, questionText: e.target.value })} />
-                </form>
-
-                {/* Answers List */}
-
+              <>
                 <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
-                  <span className="font-semibold text-lg">Answers</span>
-                  <div className="space-y-2">
-                    {currentQuestion.answers.map((answer, index) => {
-                      return (
-                        <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-magenta shadow-md" : "bg-theme-lightmagenta hover:bg-theme-darkmagenta transition duration-200"} p-2`} key={index}>
-                          <span><strong>{answer.index}. </strong>{answer.answerText}</span>
-                          <div className="flex">
-                            <div className="px-3">
-                              <input checked={answer.isCorrect} onChange={(e) => handleCorrectChange(answer, e)} type="checkbox" />
-                            </div>
-                            <div onClick={(e) => handleAnswerDelete(answer, e)} className="px-1">
-                              <span><FontAwesomeIcon icon={faTimes} /></span>
+                  <form>
+                    <textarea className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentQuestion.questionText} placeholder="Make sure the correct answer is selected..." onChange={(e) => setCurrentQuestion({ ...currentQuestion, questionText: e.target.value })} />
+                  </form>
+
+                  {/* Answers List */}
+
+                    <span className="font-semibold text-lg">Answers</span>
+                    <div className="space-y-2">
+                      {currentQuestion.answers.map((answer, index) => {
+                        return (
+                          <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-bluedarkgray shadow-md" : "bg-theme-bluemidgray hover:bg-theme-blueblack transition duration-200"} p-2`} key={index}>
+                            <span><strong>{answer.index}. </strong>{answer.answerText}</span>
+                            <div className="flex">
+                              <div className="px-3">
+                                <input checked={answer.isCorrect} onChange={(e) => handleCorrectChange(answer, e)} type="checkbox" />
+                              </div>
+                              <div onClick={(e) => handleAnswerDelete(answer, e)} className="px-1">
+                                <span><FontAwesomeIcon icon={faTimes} /></span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <button onClick={() => addAnswer()} className="mx-auto bg-theme-grass hover:bg-theme-forest py-1 font-semibold rounded w-full mt-2 transition duration-200">Add Answer</button>
+                        )
+                      })}
+                    </div>
+                    <button onClick={() => addAnswer()} className="mx-auto bg-theme-grass hover:bg-theme-forest py-1 font-semibold rounded w-full mt-2 transition duration-200">
+                      <FontAwesomeIcon icon={faPlus}/>  Answer
+                    </button>
                 </div>
-                <button className="mt-4 w-full rounded hover:bg-theme-darkroyal bg-theme-royalpurple py-1 font-semibold transition duration-200" onClick={() => updateQuestion()}>Update Question</button>
-              </div>
+                <button className="mt-4 w-full rounded hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold transition duration-200" onClick={() => updateQuestion()}>Update Question</button>
+              </>
             ) : (
-              <p>Select a question to edit</p>
+              <p className='text-center italic'>Select a question to edit</p>
             )}
 
 
@@ -342,17 +348,19 @@ export default function QuizCreator() {
 
           {/* Answer Editor */}
 
-          <div className="bg-theme-darkest rounded-lg p-3">
+          <div className="bg-theme-complement rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Answer Editor</h2>
             {currentAnswer.index ? (
-              <div>
-                <form>
-                  <textarea className="text-black w-full rounded p-1" type="text" value={currentAnswer.answerText} placeholder="Answer" onChange={(e) => setCurrentAnswer({ ...currentAnswer, answerText: e.target.value })} />
-                </form>
-                <button className="mt-4 w-full rounded hover:bg-theme-darkroyal bg-theme-royalpurple py-1 font-semibold transition duration-200" onClick={() => updateAnswer()}>Update Answer</button>
-              </div>
+              <>
+                <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
+                  <form>
+                    <textarea className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentAnswer.answerText} placeholder="Answer" onChange={(e) => setCurrentAnswer({ ...currentAnswer, answerText: e.target.value })} />
+                  </form>
+                </div>
+                <button className="mt-4 w-full rounded hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold transition duration-200" onClick={() => updateAnswer()}>Update Answer</button>
+              </>
             ) : (
-              <p>Select an answer to edit</p>
+              <p className='text-center italic'>Select an answer to edit</p>
             )}
           </div>
         </div>
