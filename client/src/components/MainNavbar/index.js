@@ -43,12 +43,10 @@ export default function MainNavbar() {
 
   return (
     <nav className='w-full fixed bg-theme-main z-10'>
-      <div className='flex items-center justify-between mx-auto w-11/12 py-3'>
+      <div className='flex items-center justify-between mx-auto w-11/12 py-1'>
         <div>
           <Link to="/home">
-            <p className='tracking-widest text-theme-aliceblue font-title font-semibold text-xl' as={Link}>
-              Quizzard
-            </p>
+            <img className='h-14 md:h-16' src='./quizzard-logo.png'/>
           </Link>
         </div>
         <div>
@@ -58,7 +56,7 @@ export default function MainNavbar() {
             </>
           ) : (
             <>
-            <button className='openModal font-main text-center' onClick={openModal}>Log In | Sign Up</button>
+            <button className='openModal text-theme-aliceblue hover:text-gray-300 border-2 border-theme-darkerer bg-theme-bluemidgray transition duration-200 hover:bg-theme-smoke rounded-full p-2 text-center' onClick={openModal}>Log In | Sign Up</button>
             </>
           )}
         </div>

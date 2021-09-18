@@ -12,11 +12,11 @@ export default function Dashboard() {
   
   if (!token) {
     return <Redirect to='/' />
-  }
+  };
 
   return (
-    <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
-      <div className='h-auto md:h-eightyvh m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
+    <div className='min-h-screen  flex justify-center items-center bg-theme-lighter'>
+      <div className='h-auto md:h-eightyvh w-full m-2 md:m-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
         <div className='text-center h-full space-y-4 mt-20 md:mt-0'>
           <form className='h-10 md:h-ten'>
             <input 
