@@ -357,13 +357,13 @@ export default function QuizCreator() {
 
           {/* Questions List */}
 
-          <div className="bg-theme-complement rounded-lg p-3">
+          <div className="bg-theme-darkerer rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question List</h2>
             <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
               <div className="space-y-2 flex flex-col">
                 {quiz.questions.length ? quiz.questions.map((question) => {
                   return (
-                    <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-blueblack shadow-md" : "bg-theme-bluemidgray hover:bg-theme-bluedarkgray"} rounded p-2 transition duration-200`} key={question.index}>
+                    <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-berrydarker shadow-md" : "bg-theme-berry hover:bg-theme-berrydark"} rounded p-2 transition duration-200`} key={question.index}>
                       <span><strong>{question.index}. ) </strong>{question.questionText}</span>
                       <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1 transition duration-100 hover:text-red-700 cursor-pointer">
                         <span><FontAwesomeIcon icon={faTimes} /></span>
@@ -372,7 +372,7 @@ export default function QuizCreator() {
                   )
                 }) : <p className='text-center italic'>Add questions by clicking the button below</p>}
               </div>
-              <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-theme-darkmagenta bg-theme-lightmagenta transition duration-200" onClick={() => addQuestion()}>
+              <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-green-700 bg-green-500 transition duration-200" onClick={() => addQuestion()}>
                 <FontAwesomeIcon icon={faPlus}/> Question
               </button>
             </div>
@@ -380,7 +380,7 @@ export default function QuizCreator() {
 
           {/* Question Editor */}
 
-          <div className="bg-theme-complement rounded-lg p-3">
+          <div className="bg-theme-darkerer rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question Editor</h2>
             {currentQuestion.index ? (
               <>
@@ -395,7 +395,7 @@ export default function QuizCreator() {
                     <div className="space-y-2">
                       {currentQuestion.answers.map((answer, index) => {
                         return (
-                          <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-blueblack shadow-md" : "bg-theme-bluemidgray hover:bg-theme-bluedarkgray"} transition duration-200 p-2`} key={index}>
+                          <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-berrydarker shadow-md" : "bg-theme-berry hover:bg-theme-berrydark"} transition duration-200 p-2`} key={index}>
                             <span><strong>{answer.index}. </strong>{answer.answerText}</span>
                             <div className="flex">
                               <div className="px-3">
@@ -410,7 +410,7 @@ export default function QuizCreator() {
                       })}
                     </div>
 
-                    <button onClick={() => addAnswer()} className="mx-auto hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold rounded w-full mt-2 transition duration-200">
+                    <button onClick={() => addAnswer()} className="mx-auto hover:bg-green-700 bg-green-500 py-1 font-semibold rounded w-full mt-2 transition duration-200">
                       <FontAwesomeIcon icon={faPlus}/>  Answer
                     </button>
 
@@ -426,7 +426,7 @@ export default function QuizCreator() {
 
           {/* Answer Editor */}
 
-          <div className="bg-theme-complement rounded-lg p-3">
+          <div className="bg-theme-darkerer rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Answer Editor</h2>
             {currentAnswer.index ? (
               <>

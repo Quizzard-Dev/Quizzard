@@ -35,8 +35,15 @@ const resolvers = {
 
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id }).populate('quizzes')
-      }
+        return await User.findOne({ _id: context.user._id }).populate([{
+        path: 'quizzes',
+        model: 'Quiz'
+      },
+    {
+      path: 'recentlyTaken',
+      model: 'Quiz'
+    }]);
+  }
     },
 
     searchQuizzes: async (parent, { search }) => {
@@ -132,6 +139,7 @@ const resolvers = {
         let numCorrect = 0
         let grades = []
         const quiz = await Quiz.findOne({_id: quizId})
+        const user = await User.findOne({_id: context.user._id})
         const correctAnswers = []
         quiz.questions.forEach(question => {
           question.answers.forEach(answer => {
@@ -156,16 +164,24 @@ const resolvers = {
           quiz.scores.splice(delIndex, 1)
         }
         else {
-          const user = await User.findOne({_id: context.user._id})
           user.quizzesTaken ++;
           quiz.takers ++;
-          await user.save()
         }
+        const usersRecentScores = user.recentlyTaken
+        if(user.recentlyTaken.length) {
+          const delIndex = usersRecentScores.indexOf(quizId)
+          if(delIndex != -1) {
+            usersRecentScores.splice(delIndex, 1)
+          }
+        }
+        usersRecentScores.unshift(quizId)
+        user.recentlyTaken = usersRecentScores
         quiz.scores.unshift({username: context.user.username, percent: (numCorrect / correctAnswers.length)})
         if(quiz.scores.length > 10) {
           quiz.scores.length = 10
         }
         await quiz.save()
+        await user.save()
         return ({percentage: (numCorrect / correctAnswers.length), results: grades})
       }
       throw new AuthenticationError('You need to be logged in!');

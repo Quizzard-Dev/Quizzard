@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         theme: {
-          main: "#497FEB",
+          main: "#262E94",
           complement: "#214B9E",
           lighter: "#91B0EE",
           darker: "#3742D4",
@@ -23,6 +23,8 @@ module.exports = {
           royalpurple: "#7222D4",
           darkroyal: "#501894",
           berry: "#7A4B78",
+          berrydark: "#5c3559",
+          berrydarker: "#301c2f",
           lightmagenta: "#DE45D6",
           magenta: "#AD13A5",
           darkmagenta: "#912D8C",

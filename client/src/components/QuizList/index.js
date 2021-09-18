@@ -68,16 +68,6 @@ export default function QuizList() {
   };
 
   const currentItems = quizData.slice(indexOfFirstItem, indexOfLastItem);
-  
-  if (loading) {
-    return (
-      <div className='h-2/3 md:h-ninety p-5 justify-center flex items-center overflow-y-auto bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
-        <div className=" flex justify-center items-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
-        </div>
-      </div>
-    );
-  };
 
   const renderPageNumbers = pages.map(n => {
     return (
@@ -128,11 +118,9 @@ export default function QuizList() {
 
   if (loading) {
     return (
-      <div className="h-auto overflow-y-auto flex justify-center md:h-1/2 p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
-        <div className=" flex justify-center items-center">
+        <div className="flex justify-center items-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
         </div>
-      </div>
     )
   }
   
@@ -141,7 +129,7 @@ export default function QuizList() {
   };
 
   return (
-    <div className="h-auto text-sm md:text-base overflow-y-auto md:h-1/2 p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main">
+    <div>
       <h2 className="text-lg mb-5 font-semibold">Your Quizzes</h2>
       {quizData.length
         ? (<div>

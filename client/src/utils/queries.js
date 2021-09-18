@@ -104,7 +104,13 @@ export const GET_ME = gql`
     me {
       _id
       username
-      quizzes(offset: $offset, limit: $limit) {
+      recentlyTaken {
+          title
+          description
+          _id
+          author
+      }
+      quizzes {
         _id
         title
         questions {
