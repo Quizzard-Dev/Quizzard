@@ -47,7 +47,7 @@ export default function SearchPage() {
         <>
           {data.map(result => {
             return (
-              <div className="rounded w-full p-3 bg-theme-main lg:flex space-y-4 lg:space-y-0 justify-between">
+              <div className="rounded w-full p-3 bg-theme-darker lg:flex space-y-4 lg:space-y-0 justify-between">
                 <div className="w-1/2">
                   <p className="text-xl font-semibold text-white">{result.title}<span className="text-black ml-1 text-sm font-normal"> -{result.author}</span></p>
                   <p className="text-xs mt-3">Created {dateFormat(result.createdAt)}</p>
@@ -252,7 +252,7 @@ export default function SearchPage() {
             </div>
             : null}
         </div>
-        <div className="bg-theme-aliceblue rounded p-5 mt-2">
+        <div className="bg-theme-bluegray rounded p-5 mt-2">
           <SearchResults />
         </div>
       </div>

@@ -167,7 +167,7 @@ export default function Quiz() {
 
 
   return (
-    <div className='items-center justify-center flex '>
+    <div className='items-center justify-center flex'>
       <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
       <div className="md:flex md:justify-between">
         <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
