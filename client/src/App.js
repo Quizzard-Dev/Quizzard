@@ -17,6 +17,7 @@ import Splash from './pages/Splash';
 import Dashboard from './pages/Dashboard';
 import QuizCreator from './pages/QuizCreator'
 import Quiz from './pages/Quiz';
+import SearchPage from './pages/Search';
 
 
 const httpLink = createHttpLink({
@@ -60,6 +61,7 @@ function App() {
             <Route exact path='/home' component={Dashboard} />
             <Redirect exact from="/home/reload" to="/home" />
             <Route path="/creator" component={QuizCreator} />
+            <Route path="/search" component={SearchPage} />
             <Route path="/quiz/:id" component={Quiz}/>
           </Switch>
         </div>
