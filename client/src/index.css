@@ -6,7 +6,7 @@
 
 body {
   background: rgb(181,206,255);
-  background: linear-gradient(180deg, rgba(181,206,255,1) 0%, rgba(145,175,237,1) 40%, rgba(109,144,214,1) 100%);
+  /* background: linear-gradient(180deg, rgba(181,206,255,1) 0%, rgba(145,175,237,1) 40%, rgba(109,144,214,1) 100%); */
   font-family: 'Libre Franklin', sans-serif;
 }
 
