@@ -6,9 +6,11 @@ export default function TopUsersList() {
       pollInterval: 1000
     })
 
-    if(loading) {
+    if (loading) {
       return (
-        <span>Loading...</span>
+          <div className="flex justify-center items-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
+          </div>
       )
     }
   
@@ -27,9 +29,15 @@ export default function TopUsersList() {
         {data.topUsers ? data.topUsers.map(user => {
           return (
             <div className="bg-theme-berry p-1 text-base flex-wrap font-normal flex justify-between rounded">
-              <span>{user.username}</span>
-              <span>Made: {user.quizzes.length}</span>
-              <span>Taken: {user.quizzesTaken}</span>
+              <div className="w-2/6">
+                <span>{user.username}</span>
+              </div>
+              <div className="w-2/6">
+                <span>Quizzes: {user.quizzes.length}</span>
+              </div>
+              <div className="w-2/6">
+                <span>Taken: {user.quizzesTaken}</span>
+              </div>
             </div>
           )
         }) : null}

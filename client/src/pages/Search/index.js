@@ -20,27 +20,26 @@ export default function SearchPage() {
   async function handleSearchSubmit() {
     setInput(search)
   }
-
-
-  function TagsList({ tags, deletable }) {
-    return (
-      <div className="grid grid-cols-3 w-full gap-2 flex-grow-0">
-        {tags.length ? tags.map(tag => {
-          return (
-            <div className="p-1 overflow-x-hidden max-w-sm rounded-xl h-7 text-sm bg-yellow-300 flex justify-between">
-              <span className="max-w-sm">{tag}</span>
-              {deletable ?
-                <div onClick={() => deleteTag(tag)} className="transition duration-100 hover:text-red-700 cursor-pointer px-1">
-                  <span><FontAwesomeIcon icon={faTimes} /></span>
-                </div>
-                : null
-              }
-            </div>
-          )
-        }) : null}
-      </div>
-    )
-  }
+    
+    function TagsList({tags, deletable}) {
+        return(
+            <div className="grid grid-cols-3 w-full gap-2 flex-grow-0">
+            {tags.length ? tags.map(tag => {
+                return (
+                    <div className="p-1 overflow-x-hidden max-w-sm rounded-xl h-7 text-sm bg-theme-berry text-white flex justify-between">
+                        <span className="max-w-sm">{tag}</span>
+                        {deletable ?
+                        <div onClick={() => deleteTag(tag)} className="transition duration-100 hover:text-red-700 cursor-pointer px-1">
+                            <span><FontAwesomeIcon icon={faTimes} /></span>
+                        </div>
+                        : null
+                        }
+                    </div>
+                )
+            }) : null}
+        </div>
+         )
+        }
 
   function SearchResults() {
     const renderData = (data) => {

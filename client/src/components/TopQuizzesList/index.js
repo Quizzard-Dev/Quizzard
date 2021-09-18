@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@apollo/client';
-
+import { Link } from 'react-router-dom';
 import { GET_TOP_QUIZZES } from '../../utils/queries';
 
 export default function TopQuizzesList() {
@@ -45,13 +45,11 @@ export default function TopQuizzesList() {
 
     const currentItems = topQuizzesData.slice(indexOfFirstItem, indexOfLastItem);
 
-    if(loading) {
+    if (loading) {
       return (
-        <div className='h-auto md:h-ninety p-5 justify-center flex items-center overflow-y-auto bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
-          <div className=" flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
           </div>
-        </div>
       )
     };
     

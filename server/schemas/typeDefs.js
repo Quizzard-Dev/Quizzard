@@ -7,6 +7,7 @@ const typeDefs = gql`
         email: String!
         password: String
         quizzesTaken: Int
+        recentlyTaken: [Quiz]
         quizzes: [Quiz]
     }
 
