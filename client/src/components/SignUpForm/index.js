@@ -21,6 +21,7 @@ export default function SignUpForm() {
         throw new Error('something went wrong!');
       }
       Auth.login(data.addUser.token);
+      window.location.assign('/home');
     } catch (err) {
       console.error(err);
     }

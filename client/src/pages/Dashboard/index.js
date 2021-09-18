@@ -15,7 +15,7 @@ export default function Dashboard() {
   
   if (!token) {
     return <Redirect to='/' />
-  }
+  };
 
   return (
     <div className='min-h-screen flex md:pt-16 justify-center bg-theme-lighter'>
