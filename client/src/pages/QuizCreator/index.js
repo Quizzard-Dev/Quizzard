@@ -34,6 +34,14 @@ export default function QuizCreator() {
 
   const tags = [
     "Programming",
+    "Javascript",
+    "Node",
+    "MySQL",
+    "CSS",
+    "React",
+    "MongoDB",
+    "WebDev",
+    "HTML",
     "Movies",
     "Television",
     "Math",
@@ -61,6 +69,7 @@ export default function QuizCreator() {
   if (loadedQuiz._id || loadedQuiz.author) {
     delete loadedQuiz._id;
     delete loadedQuiz.author;
+    delete loadedQuiz.takers;
   };
 
   if(loadedQuiz.createdAt) {
@@ -91,26 +100,54 @@ export default function QuizCreator() {
 
   const [redirect, setRedirect] = useState(false);
 
-  console.log(quiz);
-
   function addQuestion() {
+    if(currentAnswer.answerText) {
+      updateAnswer();
+    }
+    updateQuestion()
     const newQuestionList = quiz.questions;
-    const newQuestion = baseQuestion;
-    newQuestion.index = quiz.questions.length + 1;
-    newQuestionList.push(baseQuestion);
-    setQuiz({ ...quiz, questions: newQuestionList });
-    console.log(quiz);
+    if(newQuestionList.length < 30) {
+      const newQuestion = baseQuestion;
+      newQuestion.index = quiz.questions.length + 1;
+      newQuestionList.push(baseQuestion);
+      setQuiz({ ...quiz, questions: newQuestionList });
+      setCurrentAnswer({})
+      setCurrentQuestion(newQuestion)
+      setTimeout(() => {
+        const questionInput = document.querySelector("#questionInput")
+        if(questionInput) {
+          questionInput.focus()
+        }
+      }, 100)
+    }
+    else {
+      setAlert({show: true, message: "Max of 30 questions!"})
+    }
   };
 
   function addAnswer() {
+    updateAnswer()
     const newAnswerList = currentQuestion.answers;
-    const newAnswer = baseAnswer;
-    newAnswer.index = currentQuestion.answers.length + 1;
-    if (newAnswer.index === 1) {
-      newAnswer.isCorrect = true;
-    };
-    newAnswerList.push(newAnswer);
-    setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
+    if(newAnswerList.length < 10) {
+      const newAnswer = baseAnswer;
+      newAnswer.index = currentQuestion.answers.length + 1;
+      if (newAnswer.index === 1) {
+        newAnswer.isCorrect = true;
+      };
+      newAnswerList.push(newAnswer);
+      setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
+      setCurrentAnswer(newAnswer)
+      updateQuestion()
+      setTimeout(() => {
+        const answerInput = document.querySelector("#answerInput")
+        if(answerInput) {
+          answerInput.focus()
+        }
+      }, 100)
+    }
+    else {
+      setAlert({show: true, message: "Max of 10 answers per question!"})
+    }
   };
 
   function updateQuestion() {
@@ -126,19 +163,44 @@ export default function QuizCreator() {
     setCurrentQuestion({ ...currentQuestion, answers: newAnswerList });
   };
 
+  function handleQuestionInput(value) {
+    setCurrentQuestion({ ...currentQuestion, questionText: value })
+
+  }
+
   function handleQuestionChange(question) {
+    if(currentAnswer.answerText) {
+      updateAnswer()
+    }
     updateQuestion();
     setCurrentQuestion(question);
     setCurrentAnswer({});
+    setTimeout(() => {
+      const questionInput = document.querySelector("#questionInput")
+      if(questionInput) {
+        questionInput.focus()
+      }
+    }, 100)
   };
 
   function handleAnswerChange(answer) {
     updateAnswer();
+    updateQuestion();
     setCurrentAnswer(answer);
+    setTimeout(() => {
+      const answerInput = document.querySelector("#answerInput")
+      if(answerInput) {
+        answerInput.focus()
+      }
+    }, 100)
   };
 
   function handleQuestionDelete(question, e) {
     e.stopPropagation();
+    if(currentAnswer.answerText) {
+      updateAnswer();
+    }
+    updateQuestion();
     if (question.index === currentQuestion.index) {
       setCurrentQuestion({});
       setCurrentAnswer({});
@@ -155,6 +217,7 @@ export default function QuizCreator() {
 
   function handleAnswerDelete(answer, e) {
     e.stopPropagation();
+    updateAnswer();
     if (answer.index === currentAnswer.index) {
       setCurrentAnswer({});
     };
@@ -187,6 +250,10 @@ export default function QuizCreator() {
   }
 
   function handleQuizValidate() {
+    if(currentAnswer.answerText) {
+      updateAnswer();
+    }
+    updateQuestion();
     let valid = true
     if(!quiz.title) {
       valid = false;
@@ -209,6 +276,16 @@ export default function QuizCreator() {
         valid= false;
         setAlert({show: true, message: "Each question must have at least 2 answers!"})
       }
+      if(!question.questionText) {
+        valid= false;
+        setAlert({show: true, message: "Questions are missing text!"})
+      }
+      question.answers.forEach(answer => {
+        if(!answer.answerText) {
+          valid= false;
+          setAlert({show: true, message: "Answers are missing text!"})
+        }
+      })
     })
     if(valid) {
       handleQuizCreate()
@@ -286,16 +363,16 @@ export default function QuizCreator() {
               <div className="space-y-2 flex flex-col">
                 {quiz.questions.length ? quiz.questions.map((question) => {
                   return (
-                    <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-bluedarkgray shadow-md" : "bg-theme-bluemidgray hover:bg-theme-blueblack"} rounded p-2 transition duration-200`} key={question.index}>
+                    <div onClick={() => handleQuestionChange(question)} className={`flex flex-row justify-between container ${currentQuestion.index === question.index ? "bg-theme-blueblack shadow-md" : "bg-theme-bluemidgray hover:bg-theme-bluedarkgray"} rounded p-2 transition duration-200`} key={question.index}>
                       <span><strong>{question.index}. ) </strong>{question.questionText}</span>
-                      <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1">
+                      <div onClick={(e) => handleQuestionDelete(question, e)} className="px-1 transition duration-100 hover:text-red-700 cursor-pointer">
                         <span><FontAwesomeIcon icon={faTimes} /></span>
                       </div>
                     </div>
                   )
                 }) : <p className='text-center italic'>Add questions by clicking the button below</p>}
               </div>
-              <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-theme-forest bg-theme-grass transition duration-200" onClick={() => addQuestion()}>
+              <button className="mt-4 w-full rounded py-1 font-semibold hover:bg-theme-darkmagenta bg-theme-lightmagenta transition duration-200" onClick={() => addQuestion()}>
                 <FontAwesomeIcon icon={faPlus}/> Question
               </button>
             </div>
@@ -307,24 +384,24 @@ export default function QuizCreator() {
             <h2 className="text-lg font-bold mb-4 text-center">Question Editor</h2>
             {currentQuestion.index ? (
               <>
-                <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
                   <form>
-                    <textarea className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentQuestion.questionText} placeholder="Make sure the correct answer is selected..." onChange={(e) => setCurrentQuestion({ ...currentQuestion, questionText: e.target.value })} />
+                    <textarea id="questionInput" className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentQuestion.questionText} placeholder="Make sure the correct answer is selected..." onChange={(e) => handleQuestionInput(e.target.value)}/>
                   </form>
 
-                  {/* Answers List */}
+              {/* Answers List */}
 
+                <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
                     <span className="font-semibold text-lg">Answers</span>
                     <div className="space-y-2">
                       {currentQuestion.answers.map((answer, index) => {
                         return (
-                          <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-bluedarkgray shadow-md" : "bg-theme-bluemidgray hover:bg-theme-blueblack transition duration-200"} p-2`} key={index}>
+                          <div onClick={() => handleAnswerChange(answer)} className={`flex flex-row justify-between container rounded ${currentAnswer.index === answer.index ? "bg-theme-blueblack shadow-md" : "bg-theme-bluemidgray hover:bg-theme-bluedarkgray"} transition duration-200 p-2`} key={index}>
                             <span><strong>{answer.index}. </strong>{answer.answerText}</span>
                             <div className="flex">
                               <div className="px-3">
                                 <input checked={answer.isCorrect} onChange={(e) => handleCorrectChange(answer, e)} type="checkbox" />
                               </div>
-                              <div onClick={(e) => handleAnswerDelete(answer, e)} className="px-1">
+                              <div onClick={(e) => handleAnswerDelete(answer, e)} className="px-1 transition duration-100 hover:text-red-700 cursor-pointer">
                                 <span><FontAwesomeIcon icon={faTimes} /></span>
                               </div>
                             </div>
@@ -332,11 +409,12 @@ export default function QuizCreator() {
                         )
                       })}
                     </div>
-                    <button onClick={() => addAnswer()} className="mx-auto bg-theme-grass hover:bg-theme-forest py-1 font-semibold rounded w-full mt-2 transition duration-200">
+
+                    <button onClick={() => addAnswer()} className="mx-auto hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold rounded w-full mt-2 transition duration-200">
                       <FontAwesomeIcon icon={faPlus}/>  Answer
                     </button>
+
                 </div>
-                <button className="mt-4 w-full rounded hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold transition duration-200" onClick={() => updateQuestion()}>Update Question</button>
               </>
             ) : (
               <p className='text-center italic'>Select a question to edit</p>
@@ -354,16 +432,17 @@ export default function QuizCreator() {
               <>
                 <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
                   <form>
-                    <textarea className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentAnswer.answerText} placeholder="Answer" onChange={(e) => setCurrentAnswer({ ...currentAnswer, answerText: e.target.value })} />
+                    <textarea id="answerInput" className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentAnswer.answerText} placeholder="Answer" onChange={(e) => setCurrentAnswer({ ...currentAnswer, answerText: e.target.value })} />
                   </form>
                 </div>
-                <button className="mt-4 w-full rounded hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold transition duration-200" onClick={() => updateAnswer()}>Update Answer</button>
               </>
             ) : (
               <p className='text-center italic'>Select an answer to edit</p>
             )}
           </div>
         </div>
+
+
         <div className="flex flex-wrap justify-center mt-8 gap-3 lg:gap-10">
         <div>
           <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
@@ -385,9 +464,9 @@ export default function QuizCreator() {
           <div className="grid grid-cols-3 w-full gap-2 mt-3 flex-grow-0">
             {quiz.tags.map(tag => {
               return(
-                <div className="p-1 rounded-xl text-sm bg-theme-magenta flex justify-between">
+                <div className="p-1 rounded-xl text-sm bg-yellow-300 flex justify-between">
                 <span className="overflow-x-hidden max-w-sm">{tag}</span>
-                <div onClick={() => deleteTag(tag)} className="px-1">
+                <div onClick={() => deleteTag(tag)} className="transition duration-100 hover:text-red-700 cursor-pointer px-1">
                   <span><FontAwesomeIcon icon={faTimes} /></span>
                 </div>
                 </div>

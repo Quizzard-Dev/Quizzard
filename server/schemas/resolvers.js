@@ -8,8 +8,18 @@ const resolvers = {
       return await User.find({}).populate('quizzes')
     },
 
+    topUsers: async () => {
+      const userList = await User.find({}).sort({quizzesTaken: -1}).limit(10)
+      return userList
+    },
+
     user: async (parent, { userId }) => {
       return await User.findOne({ _id: userId }).populate('quizzes');
+    },
+
+    topQuizzes: async () => {
+      const quizList = await Quiz.find().sort({takers: -1}).limit(20)
+      return quizList
     },
 
     quizzes: async (parent, { author }) => {
@@ -42,9 +52,29 @@ const resolvers = {
 
       const quizResults = await Quiz.find(searchQuery).lean();
       return quizResults;
+    },
+
+    deepSearch: async (parent, { input }) => {
+      const {title, author, tags} = input
+      let query = {}
+      if(title) {
+        query.title = {$regex: title, $options: 'i'}
+      }
+      if(author) {
+        query.author = {$regex: author, $options: 'i'}
+      }
+      if(tags) {
+        if(tags.length) {
+          query.tags = {$all: tags}
+        }
+      }
+      const results = await Quiz.find(query).lean();
+      return results;
     }
 
   },
+
+
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
@@ -128,6 +158,7 @@ const resolvers = {
         else {
           const user = await User.findOne({_id: context.user._id})
           user.quizzesTaken ++;
+          quiz.takers ++;
           await user.save()
         }
         quiz.scores.unshift({username: context.user.username, percent: (numCorrect / correctAnswers.length)})

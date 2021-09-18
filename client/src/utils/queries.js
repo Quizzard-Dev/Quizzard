@@ -9,6 +9,30 @@ export const GET_USERS = gql`
     }
 `;
 
+export const GET_TOP_USERS = gql`
+    query topUsers {
+        topUsers {
+            _id
+            username
+            quizzesTaken
+            quizzes {
+                _id
+            }
+        }
+    }
+`;
+
+export const GET_TOP_QUIZZES = gql`
+    query topQuizzes {
+        topQuizzes {
+            _id
+            title
+            author
+            takers
+        }
+    }
+`;
+
 export const GET_USER = gql`
     query user($userId: ID!) {
         user(userId: $userId) {
@@ -34,12 +58,14 @@ export const GET_QUIZZES = gql`
             title
             tags
             description
+            takers
             author
             questions {
                 questionText
                 index
                 answers {
                     answerText
+                    isCorrect
                     index
                 }
             }
@@ -104,3 +130,16 @@ export const SEARCH_QUIZZES = gql`
     }
   }
 `;
+
+export const DEEP_SEARCH = gql`
+    query DeepSearch($input: SearchInput) {
+        deepSearch(input: $input) {
+         title
+         _id
+         author
+         description
+         tags
+         createdAt
+  }
+}
+`

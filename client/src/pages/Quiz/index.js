@@ -123,7 +123,7 @@ export default function Quiz() {
       const questionList = question.answers.map((answer) => {
         return (
           <div className="w-full flex justify-center" key={`${question.index}${answer.index}`}>
-            <div onClick={() => checkAnswer(question, answer)} className={`w-3/4 p-2 rounded transition duration-200 ${answersList[question.index - 1]?.chosenAnswer === answer.index ? "bg-blue-800" : "bg-blue-400 hover:bg-blue-600"}`}>
+            <div onClick={() => checkAnswer(question, answer)} className={`w-3/4 p-2 rounded transition duration-200 ${answersList[question.index - 1]?.chosenAnswer === answer.index ? "bg-yellow-500" : "bg-yellow-200 hover:bg-yellow-400"}`}>
               <span>{answer.answerText}</span>
             </div>
           </div>
@@ -171,11 +171,11 @@ export default function Quiz() {
       <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
       <div className="md:flex md:justify-between">
         <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
-        {data.quiz.tags ? 
-          <div className="grid grid-cols-3 md:w-2/6 gap-2 mt-3 flex-grow-0">
+        {data.quiz.tags && !started ? 
+          <div className="grid grid-cols-3 md:w-2/6 gap-2 mt-3 mb-5 md:mb-0 flex-grow-0">
             {data.quiz.tags.map(tag => {
               return(
-                <div className="p-1 rounded-xl text-sm bg-theme-magenta flex justify-between">
+                <div className="p-1 rounded-xl text-sm bg-yellow-300 flex justify-between">
                 <span className="overflow-x-hidden max-w-sm">{tag}</span>
                 <span><FontAwesomeIcon icon={faTag} /></span>
                 </div>
@@ -187,8 +187,8 @@ export default function Quiz() {
       </div>
         {!started && data ?
         <div className="w-full mx-auto">
-        <div className="grid grid-cols-2 px-5 gap-5">
-        <div className="w-full my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:gap-5">
+        <div className="w-full md:my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
             <h2 className="text-xl font-bold text-theme-bluegray underline">Description</h2>
             <p className="mx-3 py-3">{data.quiz.description}</p>
         </div>
@@ -196,7 +196,7 @@ export default function Quiz() {
                 <h2 className="text-xl text-theme-bluegray font-bold underline">Recent Scores</h2>
                 {data.quiz.scores.map(score => {
                     return (
-                        <div className="flex justify-between w-1/2 mx-auto">
+                        <div className="flex justify-between w-5/6 md:w-1/2 mx-auto">
                             <span className="text-lg font-semibold">{score.username}</span>
                             <span className={`text-lg font-semibold ${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
                         </div>
@@ -217,7 +217,9 @@ export default function Quiz() {
         {!grades.results.length && started
         ? 
         <div className="mt-10">
+        <div className="container rounded bg-theme-aliceblue p-5 mb-8">
           <span>{currentQuestion.questionText}</span>
+        </div>
           <Answers question={currentQuestion} answersList={answers} />
           <div className="mt-10 items-center justify-center flex space-x-5">
           {currentQuestion.index !== 1 ?
@@ -255,9 +257,12 @@ export default function Quiz() {
             <Alert message={alert.message} hideFunction={() => setAlert({show: false, message: ""})} />
         </div>
         : null}
+        {!started ? 
         <div className="text-right mt-5">
           <span>Created By: {data.quiz.author} on {data.quiz.createdAt}</span>
         </div>
+        : null
+        }
       </div>
     </div>
   );

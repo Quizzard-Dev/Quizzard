@@ -14,6 +14,7 @@ const typeDefs = gql`
         _id: ID!
         title: String
         tags: [String]
+        takers: Int
         description: String
         author: String
         createdAt: String
@@ -65,6 +66,12 @@ const typeDefs = gql`
         results: [GradedAnswer]
     }
 
+    input SearchInput {
+        title: String
+        author: String
+        tags: [String]
+    }
+
     input QuizInput {
         title: String
         description: String
@@ -81,9 +88,12 @@ const typeDefs = gql`
         me: User
         user(userId: ID!): User
         users: [User]
+        topUsers: [User]
+        topQuizzes: [Quiz]
         quiz(quizId: ID!): Quiz
         quizzes(author: String, perPage: Int, after: String): [Quiz]
         searchQuizzes(search: String): [Quiz]
+        deepSearch(input: SearchInput): [Quiz]
     }
 
     type Mutation {
