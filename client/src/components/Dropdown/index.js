@@ -55,7 +55,7 @@ export default function Dropdown() {
                 (dropdownPopoverShow ? "block " : "hidden ") +
                 "bg-theme-blueblack text-base divide-y divide-theme-bluemidgray overflow-y-hidden text-theme-aliceblue z-50 py-1 list-none text-center rounded-br-full rounded-bl-full rounded-tl-full shadow-xl mt-1"
               }
-              style={{ minWidth: "12rem" }}
+              style={{ minWidth: "12rem"}} data-popper-placement='bottom-end'
             >
             <Link to="/home">
               <p className="text-sm p-2 hover:text-gray-400 transition duration-200 font-normal block w-full whitespace-nowrap bg-transparent">
