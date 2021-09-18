@@ -13,7 +13,6 @@ module.exports = {
           complement: "#214B9E",
           lighter: "#91B0EE",
           darker: "#3742D4",
-          darkerer: "#262E94",
           darkest: "#161A54",
           bluegray: "#728ABA",
           bluemidgray: "#5C6F96",

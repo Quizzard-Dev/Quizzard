@@ -20,7 +20,7 @@ export default function QuizList() {
       <>
         {data.map((quiz, i) => {
           return (
-            <div key={i} className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+            <div key={i} className="flex justify-between container rounded bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
               <Link to={`/quiz/${quiz._id}`}>
                 <div className='w-auto font-semibold'>
                   <span>{quiz.title}</span>

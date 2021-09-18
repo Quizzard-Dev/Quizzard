@@ -35,8 +35,8 @@ export default function Dropdown() {
       <div className="relative font-main inline-flex align-middle gap-x-1 w-full">
             <button
               className={dropdownPopoverShow ?
-                "text-theme-aliceblue text-sm px-4 py-2 rounded-t-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darkerer" :
-                "text-theme-aliceblue text-sm px-4 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darker"
+                "text-theme-aliceblue text-sm px-4 py-2 rounded-t-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-100 dropdownbtn bg-theme-blueblack" :
+                "text-theme-aliceblue text-sm px-4 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-100 dropdownbtn bg-theme-bluemidgray"
               }
               type="button"
               ref={btnDropdownRef}
@@ -53,7 +53,7 @@ export default function Dropdown() {
               ref={popoverDropdownRef}
               className={
                 (dropdownPopoverShow ? "block " : "hidden ") +
-                "bg-theme-darkerer text-base divide-y divide-theme-bluemidgray overflow-y-hidden text-theme-aliceblue z-50 py-1 list-none text-center rounded-br-full rounded-bl-full rounded-tl-full shadow-xl mt-1"
+                "bg-theme-blueblack text-base divide-y divide-theme-bluemidgray overflow-y-hidden text-theme-aliceblue z-50 py-1 list-none text-center rounded-br-full rounded-bl-full rounded-tl-full shadow-xl mt-1"
               }
               style={{ minWidth: "12rem" }}
             >

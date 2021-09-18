@@ -56,7 +56,7 @@ export default function MainNavbar() {
             </>
           ) : (
             <>
-            <button className='openModal text-theme-aliceblue hover:text-gray-300 border-2 border-theme-darkerer bg-theme-bluemidgray transition duration-200 hover:bg-theme-smoke rounded-full p-2 text-center' onClick={openModal}>Log In | Sign Up</button>
+            <button className='openModal text-theme-aliceblue hover:text-gray-300 border-2 border-theme-main bg-theme-bluemidgray transition duration-200 hover:bg-theme-smoke rounded-full p-2 text-center' onClick={openModal}>Log In | Sign Up</button>
             </>
           )}
         </div>

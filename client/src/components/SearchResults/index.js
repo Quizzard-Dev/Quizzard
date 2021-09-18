@@ -13,7 +13,7 @@ export default function SearchResults({ input }) {
         {data.map((quiz, i) => {
           return (
             <Link to={`/quiz/${quiz._id}`} key={i}>
-              <div className="flex justify-between text-base container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+              <div className="flex justify-between text-base container rounded bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                 <span>{quiz.title}</span>
                 <span>{quiz.author}</span>
                 <div>
@@ -87,7 +87,7 @@ export default function SearchResults({ input }) {
   };
 
   return (
-    <div className='h-auto md:h-ninety p-5 bg-theme-bluegray text-sm md:text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+    <div className='h-auto shadow-2xl md:h-ninety p-5 bg-theme-bluegray text-sm md:text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
       {searchData.length 
       ? (
         <div className='space-y-4'>

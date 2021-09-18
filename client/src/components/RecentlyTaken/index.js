@@ -27,7 +27,7 @@ export default function RecentlyTaken() {
                         return (
                             <div className="my-2">
                                 <Link to={`/quiz/${quiz._id}`}>
-                                    <div className="bg-theme-darkerer hover:bg-theme-darkest transition duration-200 flex justify-between rounded p-1">
+                                    <div className="bg-theme-main hover:bg-theme-darkest transition duration-200 flex justify-between rounded p-1">
                                         <p>{quiz.title}</p>
                                         <p className="text-md font-normal">{quiz.author}</p>
                                     </div>
@@ -37,7 +37,7 @@ export default function RecentlyTaken() {
                         )
                     })}
                 </div>
-                : <span>No quizzes taken!</span>}
+                : <span className='italic font-normal'>No quizzes taken!</span>}
         </div>
     )
 }

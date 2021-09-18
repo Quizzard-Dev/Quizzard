@@ -348,7 +348,7 @@ export default function QuizCreator() {
   };
 
   return (
-    <div className='min-h-screen flex bg-theme-lighter'>
+    <div className='min-h-screen flex '>
       <div className="bg-theme-bluegray border-2 md:border-4 border-theme-main mt-20 w-full rounded shadow-lg p-5 m-5">
         <div className='mb-3 md:flex md:justify-between'>
           <h1 className="text-2xl font-bold font-title text-center md:text-right mb-3">Quiz Creator</h1>
@@ -357,7 +357,7 @@ export default function QuizCreator() {
 
           {/* Questions List */}
 
-          <div className="bg-theme-darkerer rounded-lg p-3">
+          <div className="bg-theme-main rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question List</h2>
             <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
               <div className="space-y-2 flex flex-col">
@@ -380,7 +380,7 @@ export default function QuizCreator() {
 
           {/* Question Editor */}
 
-          <div className="bg-theme-darkerer rounded-lg p-3">
+          <div className="bg-theme-main rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Question Editor</h2>
             {currentQuestion.index ? (
               <>
@@ -426,7 +426,7 @@ export default function QuizCreator() {
 
           {/* Answer Editor */}
 
-          <div className="bg-theme-darkerer rounded-lg p-3">
+          <div className="bg-theme-main rounded-lg p-3">
             <h2 className="text-lg font-bold mb-4 text-center">Answer Editor</h2>
             {currentAnswer.index ? (
               <>

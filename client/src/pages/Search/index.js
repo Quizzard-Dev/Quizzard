@@ -219,7 +219,7 @@ export default function SearchPage() {
   ]
 
   return (
-    <div className='min-h-screen flex bg-theme-lighter'>
+    <div className='min-h-screen flex '>
       <div className="bg-theme-bluegray border-2 md:border-4 border-theme-main mt-20 w-full rounded shadow-lg p-5 m-5">
         <h2 className="text-4xl font-title text-white mb-5">Search</h2>
         <div className="rounded bg-theme-aliceblue p-5">

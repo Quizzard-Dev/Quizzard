@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import { GET_TOP_QUIZZES } from '../../utils/queries';
 
 export default function TopQuizzesList() {

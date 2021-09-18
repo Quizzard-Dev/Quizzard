@@ -146,7 +146,7 @@ export default function Quiz() {
 
   if (loading) {
     return (
-      <div className='min-h-screen items-center justify-center flex bg-theme-lighter'>
+      <div className='min-h-screen items-center justify-center flex '>
         <div className=" flex justify-center items-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
         </div>
@@ -156,7 +156,7 @@ export default function Quiz() {
 
   if (error) {
     return (
-      <div className='min-h-screen items-center justify-center flex bg-theme-lighter'>
+      <div className='min-h-screen items-center justify-center flex '>
         <div className="p-10 rounded bg-red-400">
           <span className="text-3xl font-bold">Quiz ID not Found</span>
         </div>
@@ -167,8 +167,8 @@ export default function Quiz() {
 
 
   return (
-    <div className='items-center justify-center flex bg-theme-lighter'>
-      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-darkerer mx-1 md:mx-0 md:w-10/12">
+    <div className='items-center justify-center flex '>
+      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
       <div className="md:flex md:justify-between">
         <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
         {data.quiz.tags && !started ? 

@@ -5,7 +5,7 @@ import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 
 export default function Splash() {
   return (
-    <div className='min-h-screen flex justify-center items-center bg-theme-lighter'>
+    <div className='min-h-screen flex justify-center items-center '>
       <div className='mx-auto my-20 w-4/5 md:w-2/3'>
         <div className='container shadow-xl grid grid-cols-1 divide-y divide-y-8 divide-theme-lighter bg-theme-bluegray text-theme-aliceblue p-6 rounded-md border-2 border-theme-main md:border-4'>
           <div className='p-2 whitespace-nowrap md:whitespace-normal text-2xl lg:text-3xl animate-float font-semibold'>
