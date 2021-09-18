@@ -69,6 +69,7 @@ export default function QuizCreator() {
   if (loadedQuiz._id || loadedQuiz.author) {
     delete loadedQuiz._id;
     delete loadedQuiz.author;
+    delete loadedQuiz.takers;
   };
 
   if(loadedQuiz.createdAt) {
@@ -98,8 +99,6 @@ export default function QuizCreator() {
   const [tagText, setTagText] = useState("")
 
   const [redirect, setRedirect] = useState(false);
-
-  console.log(quiz);
 
   function addQuestion() {
     if(currentAnswer.answerText) {
@@ -388,10 +387,10 @@ export default function QuizCreator() {
                   <form>
                     <textarea id="questionInput" className="hover:bg-gray-200 transition duration-200 text-black w-full rounded p-1" type="text" value={currentQuestion.questionText} placeholder="Make sure the correct answer is selected..." onChange={(e) => handleQuestionInput(e.target.value)}/>
                   </form>
+
+              {/* Answers List */}
+
                 <div className="rounded container border-2 border-theme-aliceblue bg-theme-smoke p-2 mt-3">
-
-                  {/* Answers List */}
-
                     <span className="font-semibold text-lg">Answers</span>
                     <div className="space-y-2">
                       {currentQuestion.answers.map((answer, index) => {
@@ -410,9 +409,11 @@ export default function QuizCreator() {
                         )
                       })}
                     </div>
+
                     <button onClick={() => addAnswer()} className="mx-auto hover:bg-theme-darkmagenta bg-theme-lightmagenta py-1 font-semibold rounded w-full mt-2 transition duration-200">
                       <FontAwesomeIcon icon={faPlus}/>  Answer
                     </button>
+
                 </div>
               </>
             ) : (
@@ -440,6 +441,8 @@ export default function QuizCreator() {
             )}
           </div>
         </div>
+
+
         <div className="flex flex-wrap justify-center mt-8 gap-3 lg:gap-10">
         <div>
           <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />

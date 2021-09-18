@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+import TopUsersList from '../../components/TopUsersList';
+import TopQuizzesList from "../../components/TopQuizzesList"
 import SearchResults from '../../components/SearchResults';
 import Auth from '../../utils/auth';
 import QuizList from '../../components/QuizList';
+
 
 export default function Dashboard() {
   const [searchInput, setSearchInput] = useState('');
@@ -32,6 +35,7 @@ export default function Dashboard() {
           {!(searchInput === "") ? <SearchResults input={searchInput} /> : (
             <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
               Top Quizzes
+              <TopQuizzesList />
             </div>
           )}
         </div>
@@ -47,20 +51,20 @@ export default function Dashboard() {
               </Link>
             </div>
             <div className='w-1/3'>
+              <Link to='/search'>
+                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                    <p>
+                      Advanced Search
+                    </p>
+                </button>
+              </Link>
+            </div>
+            <div className='w-1/3'>
               <Link to='/' onClick={Auth.logout}>
                 <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
                     Log out
                   </p>
-                </button>
-              </Link>
-            </div>
-            <div className='w-1/3'>
-              <Link to='/'>
-                <button className='p-1 md:p-3 bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                    <p>
-                      Third button
-                    </p>
                 </button>
               </Link>
             </div>
@@ -73,6 +77,7 @@ export default function Dashboard() {
           <QuizList />
           <div className='hidden md:grid h-1/2 p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Users
+            <TopUsersList />
           </div>
         </div>
       </div>

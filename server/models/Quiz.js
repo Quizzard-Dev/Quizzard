@@ -19,6 +19,10 @@ const quizSchema = new Schema({
         type: String,
         required: true
     },
+    takers: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now,
