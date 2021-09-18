@@ -31,9 +31,15 @@ export default function TopQuizzesList() {
           return (
             <Link to={`/quiz/${quiz._id}`}>
             <div className="bg-theme-berry my-2 hover:shadow-md hover:bg-theme-berrydark transition duration-200 p-1 text-base flex-wrap font-normal flex justify-between rounded">
+            <div className="w-2/6">
               <span>{quiz.title}</span>
+            </div>
+            <div className="w-2/6">
               <span>{quiz.takers} takers</span>
+            </div>
+            <div className="w-2/6">
               <span>by: {quiz.author}</span>
+            </div>
             </div>
             </Link>
           )

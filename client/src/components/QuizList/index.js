@@ -68,16 +68,6 @@ export default function QuizList() {
   };
 
   const currentItems = quizData.slice(indexOfFirstItem, indexOfLastItem);
-  
-  if (loading) {
-    return (
-      <div className='h-2/3 md:h-ninety p-5 justify-center flex items-center overflow-y-auto bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
-        <div className=" flex justify-center items-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-theme-main"></div>
-        </div>
-      </div>
-    );
-  };
 
   const renderPageNumbers = pages.map(n => {
     return (

@@ -196,7 +196,7 @@ export default function Quiz() {
                 <h2 className="text-xl text-white font-bold underline">Recent Scores</h2>
                 {data.quiz.scores.map(score => {
                     return (
-                        <div className="flex justify-between w-5/6 md:w-1/2 px-2 rounded bg-theme-aliceblue mx-auto">
+                        <div className="flex justify-between my-2 w-5/6 md:w-1/2 px-2 rounded bg-theme-aliceblue mx-auto">
                             <span className="text-lg font-semibold">{score.username}</span>
                             <span className={`text-lg font-semibold ${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
                         </div>
@@ -223,11 +223,11 @@ export default function Quiz() {
           <Answers question={currentQuestion} answersList={answers} />
           <div className="mt-10 items-center justify-center flex space-x-5">
           {currentQuestion.index !== 1 ?
-            <button className="p-2 rounded bg-theme-main hover:bg-theme-complement transition duration-200" onClick={() => prevQuestion()}>Back</button>
+            <button className="p-2 rounded bg-theme-berry hover:bg-theme-berrydark transition duration-200" onClick={() => prevQuestion()}>Back</button>
             : null
           }
           {currentQuestion.index !== data.quiz.questions.length ?
-            <button className="p-2 rounded bg-theme-main hover:bg-theme-complement transition duration-200" onClick={() => nextQuestion()}>Next Question</button>
+            <button className="p-2 rounded bg-theme-berry hover:bg-theme-berrydark transition duration-200" onClick={() => nextQuestion()}>Next Question</button>
           : <button onClick={() => gradeQuiz()} className="p-2 rounded bg-green-400 hover:bg-green-600 transition duration-200">Submit Quiz</button>
           }
           </div>
