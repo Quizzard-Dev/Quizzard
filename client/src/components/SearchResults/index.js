@@ -13,7 +13,7 @@ export default function SearchResults({ input }) {
         {data.map((quiz, i) => {
           return (
             <Link to={`/quiz/${quiz._id}`} key={i}>
-              <div className="flex justify-between container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
+              <div className="flex justify-between text-base container rounded bg-theme-darkerer hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
                 <span>{quiz.title}</span>
                 <span>{quiz.author}</span>
                 <div>
@@ -28,7 +28,7 @@ export default function SearchResults({ input }) {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(8);
 
   const pages = [];
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -92,7 +92,7 @@ export default function SearchResults({ input }) {
       ? (
         <div className='space-y-4'>
           <span className='italic'>{`Search Results for '${input}'`}</span>
-          <div className='flex flex-col space-y-2 container'>
+          <div className='flex flex-col font-normal space-y-2 container'>
             {renderData(currentItems)}
             <div className='flex justify-center items-center'>
               <ul className='flex flex-wrap list-none'>
@@ -104,7 +104,7 @@ export default function SearchResults({ input }) {
                     <FontAwesomeIcon icon={faChevronLeft} />
                   </button>
                 </li>
-                {searchData.length > 10 ? renderPageNumbers : null}
+                {searchData.length > 8 ? renderPageNumbers : null}
                 <li key='nextbtn' className='p-1'>
                   <button
                     onClick={handleNextBtn}

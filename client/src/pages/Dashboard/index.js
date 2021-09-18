@@ -33,8 +33,7 @@ export default function Dashboard() {
             />
           </form>
           {!(searchInput === "") ? <SearchResults input={searchInput} /> : (
-            <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
-              Top Quizzes
+            <div className='h-2/3 md:h-ninety p-5 bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
               <TopQuizzesList />
             </div>
           )}

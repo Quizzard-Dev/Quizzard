@@ -23,6 +23,7 @@ module.exports = {
           royalpurple: "#7222D4",
           darkroyal: "#501894",
           berry: "#7A4B78",
+          darkberry: "#422841",
           lightmagenta: "#DE45D6",
           magenta: "#AD13A5",
           darkmagenta: "#912D8C",
