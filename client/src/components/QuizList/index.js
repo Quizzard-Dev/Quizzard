@@ -46,7 +46,7 @@ export default function QuizList() {
   const [deleteQuiz] = useMutation(DELETE_QUIZ);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   const [redirect, setRedirect] = useState("");
 
@@ -146,7 +146,7 @@ export default function QuizList() {
                     <FontAwesomeIcon icon={faChevronLeft} />
                   </button>
                 </li>
-                {quizData.length > 10 ? renderPageNumbers : null}
+                {quizData.length > 6 ? renderPageNumbers : null}
                 <li key='nextbtn' className='p-1'>
                   <button
                     onClick={handleNextBtn}
@@ -159,7 +159,7 @@ export default function QuizList() {
             </div>
           </div>
         </div>)
-        : `You have no Saved Quizzes`}
+        : <p className='italic'>You have no saved quizzes...</p>}
     </div>
   )
 };

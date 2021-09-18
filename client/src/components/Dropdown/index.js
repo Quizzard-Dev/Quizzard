@@ -32,11 +32,11 @@ export default function Dropdown() {
   return (
     <>
       <div className="flex flex-wrap px-4">
-      <div className="relative font-main inline-flex align-middle w-full">
+      <div className="relative font-main inline-flex align-middle gap-x-1 w-full">
             <button
               className={dropdownPopoverShow ?
-                "text-theme-aliceblue text-sm px-4 py-2 rounded-t shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darker" :
-                "text-theme-aliceblue text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darker"
+                "text-theme-aliceblue text-sm px-4 py-2 rounded-t-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darkerer" :
+                "text-theme-aliceblue text-sm px-4 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-200 dropdownbtn bg-theme-darker"
               }
               type="button"
               ref={btnDropdownRef}
@@ -46,54 +46,40 @@ export default function Dropdown() {
                   : openDropdownPopover();
               }}
             >
-              {Auth.getProfile().data.username} <FontAwesomeIcon icon={faChevronDown} />
+              {Auth.getProfile().data.username} {" "} 
+              <FontAwesomeIcon icon={faChevronDown} />
             </button>
             <div
               ref={popoverDropdownRef}
               className={
                 (dropdownPopoverShow ? "block " : "hidden ") +
-                "bg-theme-darker text-base z-50 py-1 list-none text-center rounded-br rounded-bl rounded-tl shadow-lg mt-1"
+                "bg-theme-darkerer text-base divide-y divide-theme-bluemidgray overflow-y-hidden text-theme-aliceblue z-50 py-1 list-none text-center rounded-br-full rounded-bl-full rounded-tl-full shadow-xl mt-1"
               }
               style={{ minWidth: "12rem" }}
             >
             <Link to="/home">
-              <p
-                className={
-                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-                }
-              >
+              <p className="text-sm p-2 hover:text-gray-400 transition duration-200 font-normal block w-full whitespace-nowrap bg-transparent">
                 Home
               </p>
             </Link>
             <Link to="/creator">
-              <p
-                className={
-                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-                }
-              >
+              <p className="text-sm p-2 hover:text-gray-400 transition duration-200 font-normal block w-full whitespace-nowrap bg-transparent">
                 Creator
+              </p>
+            </Link>
+            <Link to="/search">
+              <p className="text-sm hover:text-gray-400 transition duration-200 p-2 font-normal block w-full whitespace-nowrap bg-transparent">
+                Advanced Search
               </p>
             </Link>
               <a
                 href="/home"
-                className={
-                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-                }
-                onClick={e => e.preventDefault()}
+                className="text-sm p-2 font-normal block w-full whitespace-nowrap bg-transparent"
               >
-                Something else here
+                <button className='p-2 bg-red-500 hover:bg-red-800 transition duration-200 rounded-md text-white outline-none shadow-lg' onClick={Auth.logout}>Logout</button>
               </a>
-              <div className="h-0 my-2 border border-solid border-t-0 border-blueGray-800 opacity-25" />
-              <a
-                href="/home"
-                className={
-                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-                }
-              >
-                <button className='px-4 py-3 bg-red-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform' onClick={Auth.logout}>Logout</button>
-              </a>
-            </div>
           </div>
+        </div>
       </div>
     </>
   );

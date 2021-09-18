@@ -445,14 +445,14 @@ export default function QuizCreator() {
 
         <div className="flex flex-wrap justify-center mt-8 gap-3 lg:gap-10">
         <div>
-          <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
+          <input className="hover:bg-gray-200 transition duration-200 bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.title} placeholder="Enter a title..." onChange={(e) => setQuiz({ ...quiz, title: e.target.value })} />
         </div>
           <div>
-           <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.description} placeholder="Enter a Description..." onChange={(e) => setQuiz({ ...quiz, description: e.target.value })} />
+           <input className="hover:bg-gray-200 transition duration-200 bg-theme-aliceblue w-full md:w-96 rounded-lg" type="text" value={quiz.description} placeholder="Enter a description..." onChange={(e) => setQuiz({ ...quiz, description: e.target.value })} />
           </div>
           <div className="justify-center">
           <Hint options={tags} allowTabFill>
-            <input className="bg-theme-aliceblue w-full md:w-96 rounded-lg"
+            <input className="hover:bg-gray-200 transition duration-200 bg-theme-aliceblue w-full md:w-96 rounded-lg"
               value={tagText}
               type="text"
               placeholder="Add tags..."
