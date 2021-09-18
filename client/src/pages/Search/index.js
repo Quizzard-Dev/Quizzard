@@ -27,7 +27,7 @@ export default function SearchPage() {
             <div className="grid grid-cols-3 w-full gap-2 flex-grow-0">
             {tags.length ? tags.map(tag => {
                 return (
-                    <div className="p-1 overflow-x-hidden max-w-sm rounded-xl h-7 text-sm bg-yellow-300 flex justify-between">
+                    <div className="p-1 overflow-x-hidden max-w-sm rounded-xl h-7 text-sm bg-theme-berry text-white flex justify-between">
                         <span className="max-w-sm">{tag}</span>
                         {deletable ?
                         <div onClick={() => deleteTag(tag)} className="transition duration-100 hover:text-red-700 cursor-pointer px-1">
@@ -69,10 +69,10 @@ export default function SearchPage() {
                <div className="space-y-2 md:px-10">
                {data.deepSearch.map(result => {
                    return(
-                       <div className="rounded w-full p-3 bg-theme-main lg:flex space-y-4 lg:space-y-0 justify-between">
+                       <div className="rounded w-full p-3 bg-theme-darkerer lg:flex space-y-4 lg:space-y-0 justify-between">
                        <div className="w-1/2">
-                           <p className="text-xl font-semibold text-white">{result.title}<span className="text-black ml-1 text-sm font-normal"> -{result.author}</span></p>
-                           <p className="text-xs mt-3">Created {dateFormat(result.createdAt)}</p>
+                           <p className="text-xl font-semibold text-white">{result.title}<span className="ml-1 text-sm font-normal"> -{result.author}</span></p>
+                           <p className="text-gray-500 text-xs mt-3">Created {dateFormat(result.createdAt)}</p>
                        </div>
                            <div className="container rounded bg-theme-aliceblue p-3 w-full">
                                <span>{result.description}</span>
@@ -175,7 +175,7 @@ export default function SearchPage() {
                     </div>
                     : null}
                 </div>
-                <div className="bg-theme-aliceblue rounded p-5 mt-2">
+                <div className="bg-theme-bluegray rounded p-5 mt-2">
                     <SearchResults />
                 </div>
             </div>

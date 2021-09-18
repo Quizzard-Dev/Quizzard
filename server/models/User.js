@@ -29,6 +29,12 @@ const userSchema = new Schema({
       ref: 'Quiz',
     },
   ],
+  recentlyTaken: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Quiz',
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {

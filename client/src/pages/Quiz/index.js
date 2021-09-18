@@ -124,7 +124,7 @@ export default function Quiz() {
         return (
           <div className="w-full flex justify-center" key={`${question.index}${answer.index}`}>
             <div onClick={() => checkAnswer(question, answer)} className={`w-3/4 p-2 rounded transition duration-200 ${answersList[question.index - 1]?.chosenAnswer === answer.index ? "bg-yellow-500" : "bg-yellow-200 hover:bg-yellow-400"}`}>
-              <span>{answer.answerText}</span>
+              <span><span className="font-semibold mr-3">{answer.index}.) </span>{answer.answerText}</span>
             </div>
           </div>
         )
@@ -168,14 +168,14 @@ export default function Quiz() {
 
   return (
     <div className='items-center justify-center flex bg-theme-lighter'>
-      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-main mx-1 md:mx-0 md:w-10/12">
+      <div className="rounded mt-36 w-full shadow-lg p-5 bg-theme-darkerer mx-1 md:mx-0 md:w-10/12">
       <div className="md:flex md:justify-between">
         <h3 className="text-4xl text-white font-main">{data.quiz.title}</h3>
         {data.quiz.tags && !started ? 
           <div className="grid grid-cols-3 md:w-2/6 gap-2 mt-3 mb-5 md:mb-0 flex-grow-0">
             {data.quiz.tags.map(tag => {
               return(
-                <div className="p-1 rounded-xl text-sm bg-yellow-300 flex justify-between">
+                <div className="p-1 rounded-xl text-sm bg-theme-berry text-white flex justify-between">
                 <span className="overflow-x-hidden max-w-sm">{tag}</span>
                 <span><FontAwesomeIcon icon={faTag} /></span>
                 </div>
@@ -188,15 +188,15 @@ export default function Quiz() {
         {!started && data ?
         <div className="w-full mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:gap-5">
-        <div className="w-full md:my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
-            <h2 className="text-xl font-bold text-theme-bluegray underline">Description</h2>
+        <div className="w-full md:my-10 mx-auto p-3 bg-theme-bluegray rounded-lg">
+            <h2 className="text-xl font-bold text-white underline">Description</h2>
             <p className="mx-3 py-3">{data.quiz.description}</p>
         </div>
-            <div className="w-full my-10 mx-auto p-3 bg-theme-aliceblue border-4 border-theme-darker rounded-lg">
-                <h2 className="text-xl text-theme-bluegray font-bold underline">Recent Scores</h2>
+            <div className="w-full my-10 mx-auto p-3 bg-theme-bluegray rounded-lg">
+                <h2 className="text-xl text-white font-bold underline">Recent Scores</h2>
                 {data.quiz.scores.map(score => {
                     return (
-                        <div className="flex justify-between w-5/6 md:w-1/2 mx-auto">
+                        <div className="flex justify-between w-5/6 md:w-1/2 px-2 rounded bg-theme-aliceblue mx-auto">
                             <span className="text-lg font-semibold">{score.username}</span>
                             <span className={`text-lg font-semibold ${gradeColor(score.percent)}`}>{(score.percent * 100).toFixed()}%</span>
                         </div>
@@ -205,9 +205,9 @@ export default function Quiz() {
             </div>
         </div>
             <div className="text-center">
-                <button className="py-2 px-8 bg-theme-lightmagenta hover:bg-theme-magenta transition duration-200 rounded center" onClick={() => setStarted(true)}>Start Quiz</button>
+                <button className="py-2 px-8 bg-green-500 hover:bg-green-700 transition duration-200 rounded center" onClick={() => setStarted(true)}>Start Quiz</button>
                 {data.quiz.author === Auth.getProfile().data.username ?
-                <button className="py-2 px-8 bg-green-400 hover:bg-green-600 ml-5 transition duration-200 rounded center" onClick={() => handleQuizEdit()}>Copy and Edit</button>
+                <button className="py-2 px-8 bg-theme-berry hover:bg-theme-berrydark ml-5 transition duration-200 rounded center" onClick={() => handleQuizEdit()}>Copy and Edit</button>
                 : null
                 }
             </div>
@@ -223,24 +223,25 @@ export default function Quiz() {
           <Answers question={currentQuestion} answersList={answers} />
           <div className="mt-10 items-center justify-center flex space-x-5">
           {currentQuestion.index !== 1 ?
-            <button className="p-2 rounded bg-theme-darker" onClick={() => prevQuestion()}>Back</button>
+            <button className="p-2 rounded bg-theme-main hover:bg-theme-complement transition duration-200" onClick={() => prevQuestion()}>Back</button>
             : null
           }
           {currentQuestion.index !== data.quiz.questions.length ?
-            <button className="p-2 rounded bg-theme-darker" onClick={() => nextQuestion()}>Next Question</button>
-          : <button onClick={() => gradeQuiz()} className="p-2 rounded bg-green-600">Submit Quiz</button>
+            <button className="p-2 rounded bg-theme-main hover:bg-theme-complement transition duration-200" onClick={() => nextQuestion()}>Next Question</button>
+          : <button onClick={() => gradeQuiz()} className="p-2 rounded bg-green-400 hover:bg-green-600 transition duration-200">Submit Quiz</button>
           }
           </div>
           <div className="w-full text-right">
-            <span className="pt-5 pr-2">{currentQuestion.index}/{data.quiz.questions.length}</span>
+            <span className="pt-5 pr-2 text-white">{currentQuestion.index}/{data.quiz.questions.length}</span>
           </div>
         </div>
         : null}
         {grades.results.length ? 
         <div className="space-y-2 mt-5">
         <div className="text-center mb-5">
-            <span className="text-3xl">You scored <span className={`font-semibold ${gradeColor(grades.percentage)}`}>{(grades.percentage*100).toFixed()}</span>%</span>
+            <span className="text-3xl text-white">You scored <span className={`font-semibold ${gradeColor(grades.percentage)}`}>{(grades.percentage*100).toFixed()}</span>%</span>
         </div>
+        <div className="space-y-3 py-5">
             {grades.results.map(grade => {
                 return (
                     <div className={`p-2 flex justify-between rounded ${grade.correct ? "bg-green-400" : "bg-red-600"}`}>
@@ -249,6 +250,8 @@ export default function Quiz() {
                     </div>
                 )
             })}
+
+        </div>
         </div>
         : null
         }
@@ -258,7 +261,7 @@ export default function Quiz() {
         </div>
         : null}
         {!started ? 
-        <div className="text-right mt-5">
+        <div className="text-right mt-5 text-gray-900">
           <span>Created By: {data.quiz.author} on {data.quiz.createdAt}</span>
         </div>
         : null
