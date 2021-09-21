@@ -29,7 +29,7 @@ export default function TopUsersList() {
         {data.topUsers ? data.topUsers.map(user => {
           return (
             <div className="bg-theme-berry p-1 text-base flex-wrap font-normal flex justify-between rounded">
-              <div className="w-2/6">
+              <div className="w-2/6 overflow-x-auto">
                 <span>{user.username}</span>
               </div>
               <div className="w-2/6">

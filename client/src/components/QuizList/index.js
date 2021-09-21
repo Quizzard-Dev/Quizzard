@@ -22,7 +22,7 @@ export default function QuizList() {
           return (
             <div key={i} className="flex justify-between container rounded bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 px-2 py-1">
               <Link to={`/quiz/${quiz._id}`}>
-                <div className='w-auto font-semibold'>
+                <div className='w-auto'>
                   <span>{quiz.title}</span>
                 </div>
               </Link>
@@ -129,11 +129,11 @@ export default function QuizList() {
   };
 
   return (
-    <div>
+    <div className='text-base'>
       <h2 className="text-lg mb-5 font-semibold">Your Quizzes</h2>
       {quizData.length
         ? (<div>
-          <span>{`You have ${quizData.length} Saved Quizzes`}</span>
+          <span className='italic'>{`You have ${quizData.length} saved Quizzes`}</span>
           <div className="mt-5 flex flex-col space-y-2 container">
             {renderData(currentItems)}
             <div className='flex justify-center items-center'>
