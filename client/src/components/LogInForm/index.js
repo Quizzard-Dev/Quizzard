@@ -39,7 +39,7 @@ export default function LogInForm() {
         <button 
           type='submit' className='w-full px-4 py-3 bg-blue-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform'
         >
-          Submit
+          Log In
         </button>
       </form>
     </div>

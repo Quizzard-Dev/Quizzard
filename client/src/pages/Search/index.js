@@ -47,7 +47,7 @@ export default function SearchPage() {
         <>
           {data.map(result => {
             return (
-              <div className="rounded w-full p-3 bg-theme-darker lg:flex space-y-4 lg:space-y-0 justify-between">
+              <div className="rounded w-full p-3 bg-theme-darker lg:flex space-y-4 lg:space-y-0 justify-between mb-1">
                 <div className="w-1/2">
                   <p className="text-xl font-semibold text-white">{result.title}<span className="text-black ml-1 text-sm font-normal"> -{result.author}</span></p>
                   <p className="text-xs mt-3">Created {dateFormat(result.createdAt)}</p>
@@ -140,9 +140,9 @@ export default function SearchPage() {
     return (
       <div className="space-y-2 md:px-10">
         {deepSearchData.length ? (
-          <>
+          <div>
             {renderData(currentItems)}
-            <ul className='flex flex-wrap list-none'>
+            <ul className='flex flex-wrap justify-center list-none text-theme-aliceblue'>
               <li key='prevbtn' className='p-1'>
                 <button
                   onClick={handlePrevBtn}
@@ -161,7 +161,7 @@ export default function SearchPage() {
                 </button>
               </li>
             </ul>
-          </>
+          </div>
         ) : (
           <span className='italic'>No Results Found</span>
         )}
@@ -223,16 +223,16 @@ export default function SearchPage() {
       <div className="bg-theme-bluegray border-2 md:border-4 border-theme-main mt-20 w-full rounded shadow-lg p-5 m-5">
         <h2 className="text-4xl font-title text-white mb-5">Search</h2>
         <div className="rounded bg-theme-aliceblue p-5">
-          <div className="flex flex-wrap w-full justify-between">
+          <div className="flex flex-wrap w-full justify-center gap-y-1 lg:justify-between">
             <div>
-              <input className="bg-theme-aliceblue rounded-lg" type="text" value={search.title} placeholder="Title" onChange={(e) => setSearch({ ...search, title: e.target.value })} />
+              <input className="bg-white rounded-lg hover:bg-gray-100 focus:bg-gray-200 transition duration-200" type="text" value={search.title} placeholder="Title" onChange={(e) => setSearch({ ...search, title: e.target.value })} />
             </div>
             <div>
-              <input className="bg-theme-aliceblue rounded-lg" type="text" value={search.author} placeholder="Author" onChange={(e) => setSearch({ ...search, author: e.target.value })} />
+              <input className="bg-white rounded-lg hover:bg-gray-100 focus:bg-gray-200 transition duration-200" type="text" value={search.author} placeholder="Author" onChange={(e) => setSearch({ ...search, author: e.target.value })} />
             </div>
             <div className="flex justify-between gap-2">
               <Hint options={tags} allowTabFill>
-                <input className="bg-theme-aliceblue rounded-lg"
+                <input className="bg-white rounded-lg hover:bg-gray-100 focus:bg-gray-200 transition duration-200"
                   value={tagText}
                   type="text"
                   placeholder="Add tags..."

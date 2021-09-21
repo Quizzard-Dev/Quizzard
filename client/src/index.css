@@ -12,6 +12,7 @@ body {
 
 button:disabled {
   color: hsla(0, 0%, 95%, 0.5);
+  cursor: default;
 }
 
 html {
