@@ -1,7 +1,5 @@
-# Quizzard
+<h1 align='center'>Quizzard</h1>
 
-  
-  
 
   ## Description
   
@@ -10,15 +8,35 @@
 
   ## Table of Contents
   
-  - [Deployed App](#deployedapp)
+  - [Deployed App](#deployed-app)
+  - [Screen Caps](#screen-caps)
   - [Usage](#usage)
   - [Installation](#installation)
   - [Contributing](#contributing)
   - [Questions](#questions)
+  
 
   ## Deployed App
 
   The live version of this application can be found [HERE](https://quizzardweb.herokuapp.com/)
+
+
+  ## Screen Caps
+
+  **Here are some images demonstrating the functionality:**
+
+  The landing page, users must log in to take/create quizzes.
+  ![Quizzard Splash](readme_assets/quizzard-SC1.png)
+
+  Once logged in, users can view the home page and see top quizzes, top users, and can search quizzes.
+  ![Quizzard Home](readme_assets/quizzard-SC2.png)
+
+  On the advanced search page, users can find quizzes by tag or author, while on the home page they can only search by quiz name.
+  ![Quizzard Adv. Search](readme_assets/quizzard-SC3.png)
+
+  On the quiz creator page, users can create quizzes on whatever topic they desire, and add tags for other users to find it efficiently.
+  ![Quizzard Quiz Creator](readme_assets/quizzard-SC4.png)
+
   
   ## Usage
   
@@ -27,6 +45,7 @@
   If you'd like to create a quiz for other users to take, you can navigate to the Quiz Creator form the dropdown menu or from your dashboard. From here, you can begin creating a quiz by adding your first question. On each question you add, you can add answers and choose which answer is correct. Once you have a quiz with a title, description, at least 3 questions, and at least 1 tag, you can publish your quiz for the world to see! 
   
   If you're coming to quizzard for learning purposes, you can find quizzes to take a few different ways. You can use the search function on your dashboard which searched quizzes by title OR you can navigate to the advanced search page. From here, you can search by Title, Author, or Tags and see more information about individual quizzes. You can also fins quizzes form the "Top Quizzes" section on your dashboard. Once on a quiz page, you'll be greeted by some info about the quzi including a description and recent scores. Here is where you can click "Start Quiz" to start learning!
+
 
   ## Installation
   
@@ -41,12 +60,9 @@
   The client uses a proxy to talk to the backend during development as long as you have both the server and client running.
   
 
-  
-
   ## Contributing
   
   We are open to contributions from new features to bugfixes. Simply clone and make a pull request if you have any features you think would be useful.
-  
 
 
   ## Questions
