@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import {Link} from "react-router-dom"
 import { GET_TOP_USERS } from '../../utils/queries';
 
 export default function TopUsersList() {
@@ -28,8 +29,10 @@ export default function TopUsersList() {
       <div className="space-y-1">
         {data.topUsers ? data.topUsers.map(user => {
           return (
-            <div className="bg-theme-berry p-1 text-base flex-wrap font-normal flex justify-between rounded">
-              <div className="w-2/6 overflow-x-auto">
+            <div>
+            <Link to={`/user/${user._id}`}>
+            <div className="bg-theme-berry hover:bg-theme-berrydark transition duration-200 p-1 overflow-x-auto text-base flex-wrap font-normal flex justify-between rounded">
+              <div className="w-2/6">
                 <span>{user.username}</span>
               </div>
               <div className="w-2/6">
@@ -38,6 +41,8 @@ export default function TopUsersList() {
               <div className="w-2/6">
                 <span>Taken: {user.quizzesTaken}</span>
               </div>
+            </div>
+            </Link>
             </div>
           )
         }) : null}

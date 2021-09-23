@@ -17,6 +17,7 @@ import Splash from './pages/Splash';
 import Dashboard from './pages/Dashboard';
 import QuizCreator from './pages/QuizCreator'
 import Quiz from './pages/Quiz';
+import UserPage from "./pages/User"
 import SearchPage from './pages/Search';
 
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="/creator" component={QuizCreator} />
             <Route path="/search" component={SearchPage} />
             <Route path="/quiz/:id" component={Quiz}/>
+            <Route path="/user/:id" component={UserPage} />
           </Switch>
         </div>
       </Router>

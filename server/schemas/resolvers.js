@@ -14,7 +14,14 @@ const resolvers = {
     },
 
     user: async (parent, { userId }) => {
-      return await User.findOne({ _id: userId }).populate('quizzes');
+      return await User.findOne({ _id: userId }).populate([{
+        path: 'quizzes',
+        model: 'Quiz'
+      },
+    {
+      path: 'recentlyTaken',
+      model: 'Quiz'
+    }]);
     },
 
     topQuizzes: async () => {
