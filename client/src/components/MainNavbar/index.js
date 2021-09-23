@@ -19,7 +19,10 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     display: 'inline',
-    textAlign: 'right'
+    textAlign: 'right',
+    backgroundColor: '#F0F8FF',
+    width: '24rem',
+    maxWidth: '90vw'
   }
 };
 
@@ -56,7 +59,7 @@ export default function MainNavbar() {
             </>
           ) : (
             <>
-            <button className='openModal text-theme-aliceblue hover:text-gray-300 border-2 border-theme-main bg-theme-bluemidgray transition duration-200 hover:bg-theme-smoke rounded-full p-2 text-center' onClick={openModal}>Log In | Sign Up</button>
+            <button className='openModal text-theme-aliceblue hover:text-gray-300 bg-theme-bluemidgray transition duration-200 hover:bg-theme-bluedarkgray rounded-full p-2 text-center' onClick={openModal}>Log In | Sign Up</button>
             </>
           )}
         </div>

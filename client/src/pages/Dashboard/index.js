@@ -34,7 +34,7 @@ export default function Dashboard() {
             />
           </form>
           {!(searchInput === "") ? <SearchResults input={searchInput} /> : (
-            <div className='h-2/3 md:h-ninety p-5 shadow-2xl bg-theme-bluegray text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+            <div className='h-auto shadow-2xl md:h-ninety p-5 bg-theme-bluegray text-sm md:text-lg text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
               <TopQuizzesList />
             </div>
           )}
@@ -43,8 +43,8 @@ export default function Dashboard() {
           <div className='h-ten justify-between w-full flex lg:w-full mb-3 md:mb-0 md:pt-0 md:mt-0 gap-3'>
             <div className='w-full'>
               <Link to='/search'>
-                <button className='p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                    <p>
+                <button className='w-full p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                    <p className='whitespace-nowrap'>
                       Advanced Search
                     </p>
                 </button>
@@ -52,8 +52,8 @@ export default function Dashboard() {
             </div>
             <div className='w-full'>
               <Link to='/creator'>
-                <button className='p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
-                  <p>
+                <button className='w-full p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                  <p className='whitespace-nowrap'>
                     Create a quiz
                   </p>
                 </button>
@@ -61,7 +61,7 @@ export default function Dashboard() {
             </div>
             <div className='w-full'>
               <Link to='/' onClick={Auth.logout}>
-                <button className='p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
+                <button className='w-full p-3 h-10 md:h-16 bg-theme-main hover:bg-theme-darkest hover:shadow-sm transition duration-200 rounded-md text-white outline-none focus:ring-4 shadow-lg'>
                   <p>
                     Log out
                   </p>
@@ -69,7 +69,7 @@ export default function Dashboard() {
               </Link>
             </div>
           </div>
-          <div className='grid md:h-ninety shadow-2xl p-5 flex-grow bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+          <div className='grid md:h-ninety overflow-y-auto shadow-2xl p-5 flex-grow bg-theme-bluegray text-lg text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
           <QuizList />
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function Dashboard() {
             Recently Taken
             <RecentlyTaken />
         </div>
-          <div className='hidden md:grid h-1/2 p-5 shadow-2xl bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
+          <div className='hidden md:grid h-1/2 overflow-y-auto p-5 shadow-2xl bg-theme-bluegray text-lg font-semibold text-theme-aliceblue border-2 md:border-4 rounded-md border-theme-main'>
             Top Users
             <TopUsersList />
           </div>
