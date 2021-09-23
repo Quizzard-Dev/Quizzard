@@ -1,4 +1,4 @@
-<h1 align='center'>Quizzard</h1>
+  ![Quizzard logo](client/build/quizzard-logo.png)
 
 
   ## Description
