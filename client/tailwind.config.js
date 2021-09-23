@@ -31,7 +31,8 @@ module.exports = {
           grass: "#87B827",
           forest: "#4F6B16",
           aliceblue: "#F0F8FF",
-          smoke: "rgba(0, 0, 0, 0.33)"
+          smoke: "rgba(0, 0, 0, 0.33)",
+          darksmoke: "rgba(0, 0, 0, 0.85)"
         }
       },
       height: {
@@ -76,7 +77,7 @@ module.exports = {
             animationTimingFunction: 'ease-in-out'
           },
         },
-      }
+      },
     },
   },
   variants: {
