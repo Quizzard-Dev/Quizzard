@@ -37,15 +37,30 @@ export const GET_USER = gql`
     query user($userId: ID!) {
         user(userId: $userId) {
             username
+            _id
+            quizzesTaken
             quizzes {
+                _id
                 title
+                takers
+                description
+                tags
+                createdAt
                 questions {
                     questionText
+                    index
                     answers {
                         answerText
                         isCorrect
+                        index
                     }
                 }
+            }
+            recentlyTaken {
+                title
+                author
+                description
+                _id
             }
         }
     }
