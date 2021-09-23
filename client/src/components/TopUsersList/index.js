@@ -31,7 +31,7 @@ export default function TopUsersList() {
           return (
             <div>
             <Link to={`/user/${user._id}`}>
-            <div className="bg-theme-berry hover:bg-theme-berrydark transition duration-200 p-1 text-base flex-wrap font-normal flex justify-between rounded">
+            <div className="bg-theme-berry hover:bg-theme-berrydark transition duration-200 p-1 overflow-x-auto text-base flex-wrap font-normal flex justify-between rounded">
               <div className="w-2/6">
                 <span>{user.username}</span>
               </div>
